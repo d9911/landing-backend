@@ -1,368 +1,745 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Разработчик | Портфолио & AI экосистема</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <title>Den Gu | Fullstack Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            /* Палитра Mistral AI */
-            --m-orange: #ff7a17;
-            --m-orange-deep: #e0650d;
-            --m-cream: #fbf9f4;
-            --m-cream-soft: #f5f2eb;
-            --m-cream-deeper: #ede8dc;
-            --m-beige-deep: #decba5;
-            --m-ink: #111111;
-            --m-slate: #4a4a4a;
-            --m-steel: #7d7d7d;
-            --m-border: rgba(17, 11, 11, 0.1);
-            --m-border-strong: rgba(11, 11, 11, 0.25);
+      :root {
+        /* Фирменные цвета Mistral AI */
+        --colors-primary: #ff7a17;
+        --colors-primary-deep: #e0650d;
+        --colors-cream: #fbf9f4;
+        --colors-cream-soft: #f5f2eb;
+        --colors-cream-deeper: #ede8dc;
+        --colors-beige-deep: #decba5;
+        --colors-ink: #111111;
+        --colors-slate: #4a4a4a;
+        --colors-steel: #7d7d7d;
+        --colors-hairline: rgba(17, 11, 11, 0.08);
+        --colors-hairline-strong: rgba(11, 11, 11, 0.25);
 
-            /* Цвета дашборда Мастодонт */
-            --bg-dark: #0A0A0A;
-            --bg-1: #171717;
-            --bg-2: #202020;
-            --bg-3: #2A2A2A;
-            --border-1: rgba(255,255,255,0.08);
-            --good: #7CDB8E;
-            --warn: #F2DB82;
-            --bad: #E55B5B;
+        /* Семантические цвета Мастодонт РОП */
+        --colors-bg-dark: #0a0a0a;
+        --colors-bg-card: #171717;
+        --colors-bg-input: #202020;
+        --colors-border-dark: rgba(255, 255, 255, 0.08);
+        --colors-good: #7cdb8e;
+        --colors-warn: #f2db82;
+        --colors-bad: #e55b5b;
 
-            --font-sans: 'Inter', sans-serif;
-            --font-serif: 'Playfair Display', serif; /* Замена PP Editorial Old */
-            --font-mono: 'JetBrains Mono', monospace;
+        /* Типографика */
+        --font-sans: 'Inter', -apple-system, sans-serif;
+        --font-serif: 'Playfair Display', Georgia, serif;
+        --font-mono: 'JetBrains Mono', monospace;
+        --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      }
 
-            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: #ffffff;
+        color: var(--colors-ink);
+        font-family: var(--font-sans);
+        font-size: 16px;
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+      }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: #ffffff;
-            color: var(--m-ink);
-            font-family: var(--font-sans);
-            font-size: 16px;
-            line-height: 1.55;
-            -webkit-font-smoothing: antialiased;
-        }
+      /* Системные контейнеры */
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 32px;
+      }
+      .serif-text {
+        font-family: var(--font-serif);
+        font-weight: 400;
+      }
 
-        /* Общие компоненты по дизайн-системе */
-        .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
-        .serif-head { font-family: var(--font-serif); font-weight: 400; }
+      /* Кнопки (Строго 8px радиус по гайдлайну Mistral, без пилюль) */
+      .btn-m {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 200ms var(--ease-out);
+        cursor: pointer;
+        border: none;
+        text-decoration: none;
+      }
+      .btn-m-primary {
+        background: var(--colors-primary);
+        color: #ffffff;
+      }
+      .btn-m-primary:hover {
+        background: var(--colors-primary-deep);
+      }
+      .btn-m-primary:disabled {
+        background: var(--colors-hairline-strong);
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+      .btn-m-secondary {
+        background: transparent;
+        color: var(--colors-ink);
+        border: 1px solid var(--colors-hairline-strong);
+      }
+      .btn-m-secondary:hover {
+        background: var(--colors-cream-soft);
+      }
 
-        /* Кнопки без pill-скруглений (строго 8px по гайдлайну) */
-        .btn-m {
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 12px 24px; border-radius: 8px; font-weight: 500; font-size: 14px;
-            transition: all 200ms var(--ease-out); cursor: pointer; border: none; text-decoration: none;
-        }
-        .btn-m-primary { background: var(--m-orange); color: #ffffff; }
-        .btn-m-primary:hover { background: var(--m-orange-deep); }
-        .btn-m-primary:disabled { background: var(--m-border-strong); cursor: not-allowed; opacity: 0.6; }
-        .btn-m-secondary { background: transparent; color: var(--m-ink); border: 1px solid var(--m-border-strong); }
-        .btn-m-secondary:hover { background: var(--m-cream-soft); }
+      /* Шапка */
+      .header {
+        height: 64px;
+        border-bottom: 1px solid var(--colors-hairline);
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(12px);
+        z-index: 100;
+        display: flex;
+        align-items: center;
+      }
+      .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+      .logo {
+        font-family: var(--font-mono);
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: -0.5px;
+      }
+      .logo span {
+        color: var(--colors-primary);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .nav-links a {
+        color: var(--colors-slate);
+        text-decoration: none;
+        transition: color 150ms;
+      }
+      .nav-links a:hover {
+        color: var(--colors-primary);
+      }
 
-        /* Шапка */
-        .header {
-            height: 64px; border-bottom: 1px solid var(--m-border);
-            position: sticky; top: 0; background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px); z-index: 100;
-            display: flex; align-items: center;
-        }
-        .header .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-family: var(--font-mono); font-weight: 600; font-size: 16px; letter-spacing: -0.5px; }
-        .logo span { color: var(--m-orange); }
-        .nav-links { display: flex; gap: 32px; list-style: none; font-size: 14px; font-weight: 500; }
-        .nav-links a { color: var(--m-slate); text-decoration: none; transition: color 150ms; }
-        .nav-links a:hover { color: var(--m-orange); }
+      /* Герой-блок (Информация о себе на базе реального CV) */
+      .hero {
+        padding: 96px 0;
+        background: var(--colors-cream);
+        border-bottom: 1px solid var(--colors-hairline);
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 64px;
+        align-items: center;
+      }
+      .hero-title {
+        font-size: clamp(38px, 4.5vw, 64px);
+        line-height: 1.1;
+        margin-bottom: 24px;
+        color: var(--colors-ink);
+      }
+      .hero-subtitle {
+        font-size: 18px;
+        color: var(--colors-slate);
+        margin-bottom: 32px;
+        max-width: 580px;
+      }
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+      }
 
-        /* Герой-секция */
-        .hero { padding: 96px 0; background: var(--m-cream); border-bottom: 1px solid var(--m-border); }
-        .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
-        .hero-title { font-size: clamp(40px, 5vw, 64px); line-height: 1.1; margin-bottom: 24px; color: var(--m-ink); }
-        .hero-subtitle { font-size: 18px; color: var(--m-slate); margin-bottom: 32px; max-width: 540px; }
-        .hero-actions { display: flex; gap: 16px; }
+      /* Стек-панель */
+      .stack-box {
+        background: #ffffff;
+        border: 1px solid var(--colors-beige-deep);
+        padding: 32px;
+        border-radius: 12px;
+      }
+      .stack-box h3 {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .stack-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+      .tag {
+        background: var(--colors-cream-soft);
+        color: var(--colors-ink);
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 12px;
+        border: 1px solid var(--colors-hairline);
+      }
 
-        /* Стек-карточки */
-        .stack-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-        .tag { background: var(--m-cream-deeper); color: var(--m-ink); padding: 4px 12px; border-radius: 4px; font-family: var(--font-mono); font-size: 12px; }
+      /* Подход к работе */
+      .approach-section {
+        padding: 96px 0;
+      }
+      .section-title {
+        font-size: 38px;
+        margin-bottom: 48px;
+        text-align: center;
+      }
+      .app-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+      .app-card {
+        background: var(--colors-cream);
+        border: 1px solid var(--colors-hairline);
+        padding: 32px;
+        border-radius: 12px;
+        transition: transform 300ms;
+      }
+      .app-card:hover {
+        transform: translateY(-4px);
+      }
+      .app-num {
+        font-family: var(--font-serif);
+        font-size: 36px;
+        color: var(--colors-primary);
+        margin-bottom: 16px;
+      }
+      .app-card h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+        font-weight: 600;
+      }
+      .app-card p {
+        font-size: 14px;
+        color: var(--colors-slate);
+      }
 
-        /* Блок: Как я работаю */
-        .workflow { padding: 96px 0; }
-        .section-title { font-size: 36px; margin-bottom: 48px; text-align: center; }
-        .wf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-        .wf-card { background: var(--m-cream); border: 1px solid var(--m-border); padding: 32px; border-radius: 12px; }
-        .wf-num { font-family: var(--font-serif); font-size: 32px; color: var(--m-orange); margin-bottom: 16px; }
-        .wf-card h3 { font-size: 20px; margin-bottom: 12px; }
-        .wf-card p { font-size: 14px; color: var(--m-slate); }
+      /* Блок: Кейсы (Интерактивный дашборд Мастодонт РОП) */
+      .cases-section {
+        padding: 96px 0;
+        background: #000000;
+        color: #ffffff;
+      }
+      .cases-section .section-title {
+        color: #ffffff;
+      }
+      .mastodont-dashboard {
+        background: var(--colors-bg-dark);
+        border-radius: 16px;
+        border: 1px solid var(--colors-border-dark);
+        overflow: hidden;
+        padding: 32px;
+        margin-top: 32px;
+      }
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid var(--colors-border-dark);
+        padding-bottom: 20px;
+        margin-bottom: 24px;
+      }
+      .brand-block {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .brand-bolt {
+        width: 36px;
+        height: 36px;
+        background: var(--colors-warn);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #000000;
+        font-weight: 900;
+      }
 
-        /* Блок: Кейсы (Интеграция Мастодонт) */
-        .cases-section { padding: 96px 0; background: #000000; color: #ffffff; }
-        .cases-section .section-title { color: #ffffff; }
-        .mastodont-container { background: var(--bg-dark); border-radius: 20px; border: 1px solid var(--border-1); overflow: hidden; padding: 24px; }
+      .kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+      }
+      .kpi-card {
+        background: var(--colors-bg-card);
+        border: 1px solid var(--colors-border-dark);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .kpi-lbl {
+        font-size: 11px;
+        text-transform: uppercase;
+        color: var(--colors-steel);
+        margin-bottom: 6px;
+        font-family: var(--font-mono);
+      }
+      .kpi-val {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffffff;
+      }
 
-        /* Стиль формы обратной связи (По ТЗ) */
-        .contact-section { padding: 96px 0; background: var(--m-cream); border-top: 1px solid var(--m-border); }
-        .form-panel { max-width: 540px; margin: 0 auto; background: #ffffff; border: 1px solid var(--m-beige-deep); padding: 40px; border-radius: 12px; box-shadow: rgba(0, 0, 0, 0.02) 0px 4px 12px; }
-        .form-group { margin-bottom: 20px; display: flex; flex-direction: column; }
-        .form-label { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: var(--m-slate); }
-        .form-input {
-            width: 100%; padding: 12px 16px; border: 1px solid var(--m-border-strong); border-radius: 8px;
-            font-family: var(--font-sans); font-size: 15px; background: var(--m-cream); transition: border-color 200ms;
-        }
-        .form-input:focus { outline: none; border-color: var(--m-orange); background: #ffffff; }
-        textarea.form-input { resize: vertical; min-height: 120px; }
+      .live-panel {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 24px;
+        margin-top: 24px;
+      }
+      .voice-control-box {
+        background: var(--colors-bg-card);
+        border: 1px solid var(--colors-border-dark);
+        border-radius: 12px;
+        padding: 24px;
+        text-align: center;
+      }
+      .mic-btn {
+        width: 72px;
+        height: 72px;
+        border-radius: 50%;
+        background: var(--colors-bg-input);
+        border: 2px solid var(--colors-border-dark);
+        margin: 16px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 250ms;
+        color: #ffffff;
+      }
+      .mic-btn.active {
+        background: rgba(229, 91, 91, 0.2);
+        border-color: var(--colors-bad);
+        color: var(--colors-bad);
+        box-shadow: 0 0 16px var(--colors-bad);
+      }
 
-        /* Состояния формы */
-        .form-status { padding: 14px; border-radius: 8px; font-size: 14px; margin-bottom: 20px; display: none; }
-        .form-status.success { display: block; background: rgba(124, 219, 142, 0.15); color: #1e6b31; border: 1px solid var(--good); }
-        .form-status.error { display: block; background: rgba(229, 91, 91, 0.15); color: #8a2424; border: 1px solid var(--bad); }
+      .transcript-box {
+        background: var(--colors-bg-input);
+        border-radius: 8px;
+        padding: 16px;
+        min-height: 120px;
+        max-height: 180px;
+        overflow-y: auto;
+        text-align: left;
+        font-size: 14px;
+        color: #e8e8e8;
+        border: 1px solid var(--colors-border-dark);
+        font-family: var(--font-mono);
+      }
+      .analysis-output {
+        background: var(--colors-bg-card);
+        border: 1px solid var(--colors-border-dark);
+        border-radius: 12px;
+        padding: 24px;
+        font-size: 14px;
+      }
+      .analysis-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 12px;
+        color: var(--colors-warn);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-        /* Фирменный Sunset Stripe Band от Mistral AI (Обязательный маркер бренда) */
-        .sunset-stripe {
-            height: 6px;
-            background: linear-gradient(90deg, var(--m-orange) 0%, #e2ab1a 35%, #f2db82 70%, var(--m-cream) 100%);
-            width: 100%;
-        }
+      /* Контакты и Форма обратной связи по ТЗ */
+      .contact-section {
+        padding: 96px 0;
+        background: var(--colors-cream);
+        border-top: 1px solid var(--colors-hairline);
+      }
+      .form-panel {
+        max-width: 540px;
+        margin: 0 auto;
+        background: #ffffff;
+        border: 1px solid var(--colors-beige-deep);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: rgba(0, 0, 0, 0.01) 0px 4px 16px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+      .form-label {
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+        color: var(--colors-slate);
+      }
+      .form-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid var(--colors-hairline-strong);
+        border-radius: 6px;
+        font-family: var(--font-sans);
+        font-size: 15px;
+        background: var(--colors-cream);
+        transition: all 200ms;
+        color: var(--colors-ink);
+      }
+      .form-input:focus {
+        outline: none;
+        border-color: var(--colors-primary);
+        background: #ffffff;
+      }
+      textarea.form-input {
+        resize: vertical;
+        min-height: 100px;
+      }
 
-        .footer-m { background: var(--m-cream); padding: 40px 0; border-top: 1px solid var(--m-border); font-family: var(--font-mono); font-size: 13px; color: var(--m-steel); text-align: center; }
+      .form-status {
+        padding: 14px;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        display: none;
+        font-weight: 500;
+      }
+      .form-status.success {
+        display: block;
+        background: rgba(124, 219, 142, 0.15);
+        color: #1e6b31;
+        border: 1px solid var(--colors-good);
+      }
+      .form-status.error {
+        display: block;
+        background: rgba(229, 91, 91, 0.15);
+        color: #8a2424;
+        border: 1px solid var(--colors-bad);
+      }
 
-        /* Стили из наброска Мастодонт РОП */
-        .nav-brand { display: flex; align-items: center; gap: 14px; color: #ffffff; }
-        .nav-bolt { width: 36px; height: 36px; background: var(--warn); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #000000; font-weight: 900; }
-        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0; }
-        .kpi { background: var(--bg-1); border: 1px solid var(--border-1); border-radius: 12px; padding: 20px; }
-        .kpi-label { font-size: 11px; text-transform: uppercase; color: var(--m-steel); margin-bottom: 8px; }
-        .kpi-value { font-size: 32px; font-weight: 700; color: #ffffff; }
-        .call-list { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
-        .call-row { display: grid; grid-template-columns: 80px 1fr 100px 80px; align-items: center; padding: 14px; background: var(--bg-1); border: 1px solid var(--border-1); border-radius: 8px; }
-        .call-time { color: var(--m-steel); font-family: var(--font-mono); font-size: 13px; }
-        .call-score { text-align: right; font-weight: 700; color: var(--good); }
-
-        @media (max-width: 968px) {
-            .hero-grid, .wf-grid, .kpi-row { grid-template-columns: 1fr; }
-            .header .nav-links { display: none; }
-        }
+      /* Фирменный Sunset Stripe Band от Mistral AI (Обязательный маркер бренда) */
+      .sunset-stripe {
+        height: 6px;
+        background: linear-gradient(90deg, var(--colors-primary) 0%, #e2ab1a 35%, #f2db82 70%, var(--colors-cream) 100%);
+        width: 100%;
+      }
+      .footer-m {
+        background: var(--colors-cream);
+        padding: 40px 0;
+        border-top: 1px solid var(--colors-hairline);
+        font-family: var(--font-mono);
+        font-size: 13px;
+        color: var(--colors-steel);
+        text-align: center;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <header class="header">
-        <div class="container">
-            <div class="logo">DEVELOPER<span>_</span>STUDIO</div>
-            <ul class="nav-links">
-                <li><a href="#about">О себе</a></li>
-                <li><a href="#approach">Методология</a></li>
-                <li><a href="#cases">AI Кейс</a></li>
-                <li><a href="#contact">Контакты</a></li>
-            </ul>
-            <a href="#contact" class="btn-m btn-m-primary">Связаться</a>
-        </div>
+      <div class="container">
+        <div class="logo">DEN_GU<span>_</span></div>
+        <ul class="nav-links">
+          <li><a href="#about">Разработчик</a></li>
+          <li><a href="#approach">Подход</a></li>
+          <li><a href="#cases">AI-Компонент</a></li>
+          <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <a href="#contact" class="btn-m btn-m-primary">Обсудить проект</a>
+      </div>
     </header>
 
     <section id="about" class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div>
-                    <h1 class="hero-title serif-head">Создаю отказоустойчивые веб-системы на стыке <i>Frontend</i> и <i>AI-интеграций</i>.</h1>
-                    <p class="hero-subtitle">Специализируюсь на Fullstack-разработке сложных интерфейсов, архитектуре Clean Architecture / FSD и оптимизации серверных процессов под высокие нагрузки.</p>
-                    <div class="hero-actions">
-                        <a href="#contact" class="btn-m btn-m-primary">Начать проект</a>
-                        <a href="#cases" class="btn-m btn-m-secondary">Смотреть AI-кейс</a>
-                    </div>
-                </div>
-                <div>
-                    <div class="wf-card" style="background:#ffffff">
-                        <h3 class="serif-head" style="margin-bottom:16px">Технологический стек</h3>
-                        <div class="form-label">Frontend</div>
-                        <div class="stack-tags">
-                            <span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Next.js</span><span class="tag">Tailwind CSS</span>
-                        </div>
-                        <div class="form-label" style="margin-top:20px">Backend & Infrastructure</div>
-                        <div class="stack-tags">
-                            <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">PostgreSQL</span><span class="tag">Docker</span><span class="tag">Redis</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="approach" class="workflow">
-        <div class="container">
-            <h2 class="section-title serif-head">Инженерный подход к задачам</h2>
-            <div class="wf-grid">
-                <div class="wf-card">
-                    <div class="wf-num">01</div>
-                    <h3>Архитектура FSD</h3>
-                    <p>Никакого спагетти-кода. Проекты строятся по методологии Feature-Sliced Design. Полная изоляция модулей, предсказуемый рендеринг и легкое масштабирование.</p>
-                </div>
-                <div class="wf-card">
-                    <div class="wf-num">02</div>
-                    <h3>Human-in-the-Loop AI</h3>
-                    <p>Использую связку Claude + Cursor для автоматизации написания тестов, генерации конфигураций и сложных математических SVG-карт. Скорость рутинной разработки выше в 3 раза.</p>
-                </div>
-                <div class="wf-card">
-                    <div class="wf-num">03</div>
-                    <h3>Продуктовое мышление</h3>
-                    <p>Не просто пишу код, а оптимизирую UX. Знаю, как разгрузить Event Loop бэкенда при обработке медиа и как правильно организовать асинхронные состояния.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="cases" class="cases-section">
-        <div class="container">
-            <h2 class="section-title serif-head" style="margin-bottom:16px">Главный учебный кейс: «Мастодонт РОП»</h2>
-            <p style="text-align:center; color:var(--m-steel); margin-bottom:48px; max-width:600px; margin-left:auto; margin-right:auto;">
-                Прогрессивная SPA-панель для контроля качества звонков отдела продаж. Демонстрирует работу с асинхронными потоками данных и сложными SVG-метриками.
+      <div class="container">
+        <div class="hero-grid">
+          <div>
+            <h1 class="hero-title serif-head">Проектирую <i>отказоустойчивую архитектуру</i> и производительные интерфейсы.</h1>
+            <p class="hero-subtitle">
+              Fullstack-инженер с коммерческим опытом разработки enterprise-систем и B2B/B2C SaaS-платформ. Специализируюсь на чистом коде, интеграции ИИ и оптимизации инфраструктуры под высокие
+              нагрузки.
             </p>
-
-            <div class="mastodont-container">
-                <div style="display:flex; justify-content:between; align-items:center; border-bottom:1px solid var(--border-1); padding-bottom:16px;">
-                    <div class="nav-brand">
-                        <div class="nav-bolt">⚡</div>
-                        <div>
-                            <strong style="font-size:16px">Мастодонт РОП</strong>
-                            <div style="font-size:11px; color:var(--m-steel)">Анализ эффективности на базе Web Speech API</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="kpi-row">
-                    <div class="kpi"><div class="kpi-label">Всего звонков</div><div class="kpi-value">30</div></div>
-                    <div class="kpi"><div class="kpi-label">Скор команды</div><div class="kpi-value">74<span style="font-size:14px;color:var(--m-steel)">/100</span></div></div>
-                    <div class="kpi"><div class="kpi-label">Конверсия</div><div class="kpi-value">17%</div></div>
-                    <div class="kpi"><div class="kpi-label">Выручка</div><div class="kpi-value">450К</div></div>
-                </div>
-
-                <div style="margin-top:24px">
-                    <div class="kpi-label">Последние зафиксированные звонки</div>
-                    <div class="call-list">
-                        <div class="call-row">
-                            <span class="call-time">09:14</span>
-                            <div style="color:#fff; font-size:14px">Андрей К. <p style="font-size:12px;color:var(--m-steel)">Запрос — повышение чека</p></div>
-                            <span style="background:rgba(124,219,142,0.15); color:var(--good); padding:4px 8px; border-radius:4px; font-size:11px; text-align:center">Сделка</span>
-                            <span class="call-score">94</span>
-                        </div>
-                        <div class="call-row">
-                            <span class="call-time">11:42</span>
-                            <div style="color:#fff; font-size:14px">Татьяна В. <p style="font-size:12px;color:var(--m-steel)">Возражение «дорого»</p></div>
-                            <span style="background:rgba(229,91,91,0.15); color:var(--bad); padding:4px 8px; border-radius:4px; font-size:11px; text-align:center">Слита</span>
-                            <span class="call-score" style="color:var(--bad)">64</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="hero-actions">
+              <a href="#contact" class="btn-m btn-m-primary">Связаться</a>
+              <a href="#cases" class="btn-m btn-m-secondary">Посмотреть AI-кейс</a>
             </div>
+          </div>
+          <div>
+            <div class="stack-box">
+              <h3>Технический бэкграунд</h3>
+              <div class="form-label">Core Frontend</div>
+              <div class="stack-tags"><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Next.js 15</span><span class="tag">Vue 3 / Nuxt</span></div>
+              <div class="form-label">Backend & DB</div>
+              <div class="stack-tags">
+                <span class="tag">Node.js (NestJS)</span><span class="tag">PHP (Laravel)</span><span class="tag">Rust</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span
+                ><span class="tag">ClickHouse</span>
+              </div>
+              <div class="form-label">Архитектура & DevOps</div>
+              <div class="stack-tags">
+                <span class="tag">FSD</span><span class="tag">Clean Architecture</span><span class="tag">Docker</span><span class="tag">Kubernetes</span><span class="tag">CI/CD</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
+
+    <section id="approach" class="approach-section">
+      <div class="container">
+        <h2 class="section-title serif-head">Организация процессов и подход</h2>
+        <div class="app-grid">
+          <div class="app-card">
+            <div class="app-num">01</div>
+            <h3>Архитектурный паттерн FSD</h3>
+            <p>
+              Проектирую приложения по методологии Feature-Sliced Design. Полная изоляция бизнес-фич, исключение циклических зависимостей, предсказуемость рефакторинга и готовность к быстрому
+              масштабированию.
+            </p>
+          </div>
+          <div class="app-card">
+            <div class="app-num">02</div>
+            <h3>Human-in-the-Loop AI</h3>
+            <p>
+              Интегрирую современные ИИ-инструменты (Claude, Cursor) в ежедневный цикл разработки. Использую LLM для генерации юнит-тестов, оптимизации сложных SQL-запросов и ускорения рутинных
+              операций в 3 раза.
+            </p>
+          </div>
+          <div class="app-card">
+            <div class="app-num">03</div>
+            <h3>Полный цикл владения (Ownership)</h3>
+            <p>
+              Решаю задачи бизнеса комплексно: от проектирования безопасных контрактов REST/GraphQL API до написания Pixel-Perfect интерфейсов и развёртывания изолированных окружений в
+              Docker/Kubernetes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
 
     <section id="contact" class="contact-section">
-        <div class="container">
-            <h2 class="section-title serif-head">Обсудить проект</h2>
-
-            <div class="form-panel">
-                <div id="status-message" class="form-status"></div>
-
-                <form id="feedback-form" novalidate>
-                    <div class="form-group">
-                        <label class="form-label" for="name">Имя</label>
-                        <input class="form-input" type="text" id="name" required placeholder="Иван">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="phone">Телефон</label>
-                        <input class="form-input" type="tel" id="phone" required placeholder="+7 (999) 000-00-00">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email</label>
-                        <input class="form-input" type="email" id="email" required placeholder="ivan@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="comment">Комментарий</label>
-                        <textarea class="form-input" id="comment" required placeholder="Опишите вашу задачу..."></textarea>
-                    </div>
-
-                    <button class="btn-m btn-m-primary" style="width: 100%; margin-top: 10px;" type="submit" id="submit-btn">
-                        <span>Отправить заявку</span>
-                    </button>
-                </form>
+      <div class="container">
+        <h2 class="section-title serif-head">Обсудить проект или вакансию</h2>
+        <div class="form-panel">
+          <div id="form-status-banner" class="form-status"></div>
+          <form id="contact-feedback-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="u-name">Ваше имя</label>
+              <input class="form-input" type="text" id="u-name" required placeholder="Денис" />
             </div>
+            <div class="form-group">
+              <label class="form-label" for="u-phone">Номер телефона</label>
+              <input class="form-input" type="tel" id="u-phone" required placeholder="+7 (999) 000-00-00" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="u-email">Электронная почта</label>
+              <input class="form-input" type="email" id="u-email" required placeholder="den.gu@example.com" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="u-comment">Сопроводительный текст / ТЗ</label>
+              <textarea class="form-input" id="u-comment" required placeholder="Опишите стек вашего проекта, задачи или требования к MVP..."></textarea>
+            </div>
+            <button class="btn-m btn-m-primary" style="width: 100%; margin-top: 12px" type="submit" id="submit-action-btn">
+              <span>Отправить сообщение</span>
+            </button>
+          </form>
         </div>
+      </div>
     </section>
 
     <div class="sunset-stripe"></div>
     <footer class="footer-m">
-        <div class="container">
-            © 2026 Developer Portfolio. Built code with Full-Cycle Logic Frontend → API.
-        </div>
+      <div class="container">Den Gu — Fullstack Production Portfolio · 2026 · Clean Architecture & API Full Cycle Integration.</div>
     </footer>
 
     <script>
-        document.getElementById('feedback-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
+      /* === ИНТЕГРАЦИЯ WEB SPEECH API ДЛЯ МАСТОДОНТ РОП === */
+      const micTrigger = document.getElementById('mic-trigger')
+      const micStatus = document.getElementById('mic-status')
+      const liveTranscript = document.getElementById('live-transcript')
+      const analysisText = document.getElementById('analysis-text')
 
-            const name = document.getElementById('name').value.trim();
-            const phone = document.getElementById('phone').value.trim();
-            const email = document.getElementById('email').value.trim();
-            const comment = document.getElementById('comment').value.trim();
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+      let recognition = null
+      let isRecording = false
 
-            const statusBox = document.getElementById('status-message');
-            const submitBtn = document.getElementById('submit-btn');
+      if (!SpeechRecognition) {
+        micStatus.textContent = 'Ваш браузер не поддерживает native Web Speech API. Рекомендуется использовать Google Chrome.'
+        micTrigger.disabled = true
+      } else {
+        recognition = new SpeechRecognition()
+        recognition.lang = 'ru-RU'
+        recognition.continuous = true
+        recognition.interimResults = true
 
-            // Клиентская валидация
-            statusBox.className = 'form-status';
-            statusBox.style.display = 'none';
+        recognition.onstart = () => {
+          isRecording = true
+          micTrigger.classList.add('active')
+          micStatus.textContent = 'Запись активна. Говорите в микрофон...'
+        }
 
-            if (!name || !phone || !email || !comment) {
-                statusBox.textContent = 'Пожалуйста, заполните все поля формы.';
-                statusBox.classList.add('error');
-                return;
+        recognition.onresult = (event) => {
+          let interimTranscript = ''
+          let finalTranscript = ''
+
+          for (let i = event.resultIndex; i < event.results.length; ++i) {
+            if (event.results[i].isFinal) {
+              finalTranscript += event.results[i][0].transcript
+            } else {
+              interimTranscript += event.results[i][0].transcript
             }
+          }
+          liveTranscript.innerHTML = `<span style="color:#ffffff">${finalTranscript}</span><span style="color:var(--colors-steel)">${interimTranscript}</span>`
 
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                statusBox.textContent = 'Введите корректный адрес электронной почты.';
-                statusBox.classList.add('error');
-                return;
-            }
+          // Детерминированный локальный парсинг речевых паттернов для симуляции ИИ
+          evaluateSpeechText(finalTranscript.toLowerCase())
+        }
 
-            // Активация состояния Loading (Блокировка кнопки, смена текста)
-            submitBtn.disabled = true;
-            submitBtn.querySelector('span').textContent = 'Отправка данных...';
+        recognition.onerror = () => {
+          stopVoiceRecording()
+        }
 
-            try {
-                const response = await fetch('/api/feedback', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, phone, email, comment })
-                });
+        recognition.onend = () => {
+          stopVoiceRecording()
+        }
+      }
 
-                const result = await response.json();
+      micTrigger.addEventListener('click', () => {
+        if (!recognition) return
+        if (isRecording) {
+          recognition.stop()
+        } else {
+          liveTranscript.textContent = ''
+          recognition.start()
+        }
+      })
 
-                if (response.ok) {
-                    // Состояние Success
-                    statusBox.textContent = 'Форма успешно отправлена! Письмо и копия доставлены.';
-                    statusBox.classList.add('success');
-                    document.getElementById('feedback-form').reset();
-                } else {
-                    // Серверная ошибка
-                    statusBox.textContent = result.error || 'Произошла серверная ошибка при отправке.';
-                    statusBox.classList.add('error');
-                }
-            } catch (err) {
-                // Сетевая ошибка
-                statusBox.textContent = 'Не удалось связаться с сервером. Проверьте соединение.';
-                statusBox.classList.add('error');
-            } finally {
-                // Сброс состояния кнопки
-                submitBtn.disabled = false;
-                submitBtn.querySelector('span').textContent = 'Отправить заявку';
-            }
-        });
+      function stopVoiceRecording() {
+        isRecording = false
+        micTrigger.classList.remove('active')
+        micStatus.textContent = 'Запись остановлена. Нажмите для нового сеанса.'
+      }
+
+      function evaluateSpeechText(text) {
+        if (text.length < 5) return
+
+        let score = 78
+        let feedbackHtml = ''
+
+        if (text.includes('здравствуйте') || text.includes('добрый день')) {
+          score += 10
+          feedbackHtml += `<p style="color:var(--colors-good); margin-bottom:6px;"><b>[ФЛАГ РОП]:</b> Приветствие отработано корректно соответствии со скриптом (+10 баллов).</p>`
+        }
+        if (text.includes('скидка') || text.includes('дешевле')) {
+          score -= 15
+          feedbackHtml += `<p style="color:var(--colors-warn); margin-bottom:6px;"><b>[ФЛАГ РОП]:</b> Обнаружен преждевременный демпинг цены без выявления ценности (-15 баллов).</p>`
+        }
+        if (text.includes('дорого') || text.includes('нет денег')) {
+          score -= 20
+          feedbackHtml += `<p style="color:var(--colors-bad); margin-bottom:6px;"><b>[ФЛАГ РОП]:</b> Провал этапа отработки возражений. Рекомендуется ручной разбор звонка РОПом.</p>`
+        }
+
+        score = Math.max(30, Math.min(100, score))
+        document.getElementById('kpi-score').innerHTML = `${score}<span style="font-size:14px;color:var(--colors-steel)">/100</span>`
+        document.getElementById('kpi-calls').textContent = '33'
+
+        analysisText.innerHTML = `
+                <div style="font-size:24px; font-weight:700; margin-bottom:12px; color:#ffffff">${score} из 100 баллов</div>
+                ${feedbackHtml || '<p style="color:var(--colors-steel)">Текст обрабатывается. Критических триггерных отклонений от скрипта РОП пока не обнаружено.</p>'}
+                <p style="margin-top:12px; font-size:12px; color:var(--colors-steel)">Транскрибированный текст: "${text}"</p>
+            `
+      }
+
+      /* === ФУЛЛ-ЦИКЛ ОБРАБОТКИ ФОРМЫ ОБРАТНОЙ СВЯЗИ === */
+      document.getElementById('contact-feedback-form').addEventListener('submit', async function (e) {
+        e.preventDefault()
+
+        const name = document.getElementById('u-name').value.trim()
+        const phone = document.getElementById('u-phone').value.trim()
+        const email = document.getElementById('u-email').value.trim()
+        const comment = document.getElementById('u-comment').value.trim()
+
+        const statusBanner = document.getElementById('form-status-banner')
+        const submitBtn = document.getElementById('submit-action-btn')
+
+        statusBanner.className = 'form-status'
+        statusBanner.style.display = 'none'
+
+        // Нативная валидация на стороне клиента
+        if (!name || !phone || !email || !comment) {
+          statusBanner.textContent = 'Ошибка: Все поля формы обязательны для заполнения.'
+          statusBanner.classList.add('error')
+          return
+        }
+
+        const emailValidator = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if (!emailValidator.test(email)) {
+          statusBanner.textContent = 'Ошибка: Указан некорректный формат почтового адреса.'
+          statusBanner.classList.add('error')
+          return
+        }
+
+        // Включение состояния Loading
+        submitBtn.disabled = true
+        submitBtn.querySelector('span').textContent = 'Отправка данных на API...'
+
+        try {
+          const response = await fetch('/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, phone, email, comment }),
+          })
+
+          const data = await response.json()
+
+          if (response.ok) {
+            // Включение состояния Success
+            statusBanner.textContent = 'Успешно! Ваше сообщение зарегистрировано. Копия подтверждения отправлена на ваш Email.'
+            statusBanner.classList.add('success')
+            document.getElementById('contact-feedback-form').reset()
+          } else {
+            // Обработка серверных ошибок валидации
+            statusBanner.textContent = data.error || 'Ошибка сервера при валидации контракта.'
+            statusBanner.classList.add('error')
+          }
+        } catch (err) {
+          // Обработка сетевых сбоев
+          statusBanner.textContent = 'Сбой сети: Не удалось соединиться с API-сервером бэкенда.'
+          statusBanner.classList.add('error')
+        } finally {
+          // Выход из состояния Loading
+          submitBtn.disabled = false
+          submitBtn.querySelector('span').textContent = 'Отправить сообщение'
+        }
+      })
     </script>
-</body>
+  </body>
 </html>
