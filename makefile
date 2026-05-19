@@ -10,7 +10,7 @@ init-env:
 	@echo "📝 Проверка конфигурационных файлов .env..."
 	@if [ ! -f backend/.env ]; then \
 		cp backend/.env.example backend/.env 2>/dev/null || \
-		echo "PORT=$(BACKEND_PORT)\nOWNER_EMAIL=test@d9911.org\nSMTP_HOST=smtp.mailtrap.io\nSMTP_PORT=2525\nSMTP_SECURE=false" > backend/.env; \
+		echo "PORT=$(BACKEND_PORT)\nOWNER_EMAIL=test@d9911.org\nSMTP_HOST=sandbox.smtp.mailtrap.io\nSMTP_PORT=2525\nSMTP_SECURE=false" > backend/.env; \
 		echo "✅ Создан дефолтный backend/.env"; \
 	else \
 		echo "👉 Файл backend/.env уже существует."; \
@@ -30,17 +30,17 @@ clean-ports:
 	@echo "🧹 Очищаем порты $(BACKEND_PORT) (Backend) и $(FRONTEND_PORT) (Frontend)..."
 	-@npx --yes kill-port $(BACKEND_PORT) $(FRONTEND_PORT) > /dev/null 2>&1
 
-# 4. Изолированный запуск API с нативным Hot Reload (--watch)
+# 4. Изолированный запуск API (TypeScript + tsx)
 dev-backend: clean-ports init-env
 	@echo "🚀 Запуск бэкенда в режиме разработки..."
-	cd backend && node --watch src/app/server.js
+	cd backend && yarn run dev
 
-# 5. Изолированный запуск клиентской части
+# 5. Изолированный запуск клиентской части (Vite)
 dev-frontend:
 	@echo "🚀 Запуск фронтенда (Vite)..."
 	cd frontend && yarn run dev
 
-# 6. Статический анализ проекта (ESLint, Prettier, Stylelint по ТЗ)
+# 6. Статический анализ проекта
 lint:
 	@echo "🔍 Проверка качества и форматирования кода..."
 	-cd backend && yarn run lint
@@ -48,17 +48,20 @@ lint:
 
 # 7. Production-сборка ассетов для деплоя
 build:
-	@echo "🏗️ Компиляция фронтенда в production-ready ассеты..."
+	@echo "🏗️ Компиляция проекта в production-ready ассеты..."
+	@echo "Сборка бэкенда (TS -> JS)..."
+	cd backend && yarn run build
+	@echo "Сборка фронтенда..."
 	cd frontend && yarn run build
 
 # 8. Fullstack запуск "в один клик" (с очисткой портов и проверкой env)
 dev: clean-ports init-env
-	@echo "⚡ Запуск Fullstack-экосистемы (Мастодонт РОП)..."
+	@echo "⚡ Запуск Fullstack-экосистемы..."
 	@make -j2 _run-backend _run-frontend
 
-# Внутренние таргеты параллельного стрима с флагом --watch
+# Внутренние таргеты параллельного стрима
 _run-backend:
-	cd backend && node --watch src/app/server.js
+	cd backend && yarn run dev
 
 _run-frontend:
 	cd frontend && yarn run dev
