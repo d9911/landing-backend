@@ -162,50 +162,60 @@
       <div class="container">Den Gu — Fullstack Production Portfolio · 2026 · Clean Architecture & API Full Cycle Integration.</div>
     </footer>
 
-    <!-- Элементы для Web Speech API (Мастодонт РОП) -->
-    <div id="mic-trigger" class="mic-btn" style="position: fixed; bottom: 24px; right: 24px; z-index: 1000">🎤</div>
-    <div
-      id="mic-status"
-      style="position: fixed; bottom: 100px; right: 24px; z-index: 1000; background: rgba(0, 0, 0, 0.7); color: white; padding: 8px 12px; border-radius: 4px; font-size: 14px; max-width: 200px"
-    >
-      Готов к записи
-    </div>
-    <div
-      id="live-transcript"
-      style="
-        position: fixed;
-        bottom: 150px;
-        right: 24px;
-        z-index: 1000;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 12px;
-        border-radius: 4px;
-        font-size: 13px;
-        max-width: 200px;
-        min-height: 60px;
-      "
-    >
-      Транскрипт появится здесь...
-    </div>
-    <div
-      id="analysis-text"
-      style="
-        position: fixed;
-        bottom: 250px;
-        right: 24px;
-        z-index: 1000;
-        background: rgba(0, 0, 0, 0.7);
-        color: white;
-        padding: 12px;
-        border-radius: 4px;
-        font-size: 13px;
-        max-width: 200px;
-        min-height: 80px;
-      "
-    >
-      Анализ появится здесь...
-    </div>
+    <!-- Интерактивный AI-Компонент (Мастодонт РОП) -->
+    <section id="cases" class="cases-section">
+      <div class="container">
+        <h2 class="section-title serif-head">Интерактивный AI-компонент</h2>
+        <div class="mastodont-dashboard">
+          <div class="dashboard-header">
+            <div class="brand-block">
+              <div class="brand-bolt">AI</div>
+              <span style="font-family: var(--font-mono); font-weight: 600">РОП Анализатор v2.0</span>
+            </div>
+            <div style="font-family: var(--font-mono); font-size: 12px; color: var(--colors-steel)">Web Speech API Integration</div>
+          </div>
+
+          <div class="kpi-grid">
+            <div class="kpi-card">
+              <div class="kpi-lbl">Соблюдение скрипта</div>
+              <div class="kpi-val" id="kpi-score">--<span style="font-size: 14px; color: var(--colors-steel)">/100</span></div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-lbl">Перехватов инициативы</div>
+              <div class="kpi-val">0</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-lbl">Статус записи</div>
+              <div class="text-sm font-bold mt-2" style="color: var(--colors-warn); text-transform: uppercase">Ready</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-lbl">Длительность</div>
+              <div class="kpi-val" id="kpi-calls">00:00</div>
+            </div>
+          </div>
+
+          <div class="live-panel">
+            <div class="voice-control-box">
+              <p style="font-size: 13px; color: var(--colors-steel); margin-bottom: 16px">Управление потоком данных</p>
+              <!-- Кнопка микрофона теперь красиво живет тут -->
+              <div id="mic-trigger" class="mic-btn">🎤</div>
+              <div id="mic-status" style="font-size: 13px; color: var(--colors-steel); margin-top: 12px">Нажмите для запуска записи голоса</div>
+
+              <!-- Транскрипт -->
+              <div id="live-transcript" class="transcript-box" style="margin-top: 24px">
+                Поговорите с клиентом: произнесите "Здравствуйте", "скидка" или "дорого", чтобы ИИ проанализировал вашу речь...
+              </div>
+            </div>
+
+            <!-- Анализ -->
+            <div class="analysis-output">
+              <div class="analysis-title"><span>⚡</span> Лог AI-инспектора</div>
+              <div id="analysis-text" style="color: var(--colors-steel); font-family: var(--font-mono); font-size: 13px; line-height: 1.6">Ожидание голосового потока...</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <script src="js/main.js" type="module"></script>
   </body>
