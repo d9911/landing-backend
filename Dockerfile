@@ -4,15 +4,8 @@ FROM node:18-alpine AS builder
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and yarn.lock (or package-lock) for both frontend and backend
-# We have a root package.json? Actually, we have separate package.json in frontend and backend.
-# Let's copy the root package.json (if exists) and then the frontend and backend directories.
-# However, note that the root package.json is for the whole project (ai-interface) and only has scripts.
-# We'll copy the entire project and then install dependencies in each subdirectory.
-
-# First, copy the root package.json and yarn.lock (if any) for the root scripts (though not needed for build)
-COPY package.json yarn.lock ./
-# Copy frontend and backend directories
+# Copy root package.json (for scripts) and then frontend and backend
+COPY package.json ./
 COPY frontend ./frontend
 COPY backend ./backend
 
@@ -40,21 +33,21 @@ RUN apk add --no-cache nginx && \
 # Create app directory
 WORKDIR /app
 
-# Copy built artifacts from builder stage
+# Copy built artifacts and node_modules from builder stage
 COPY --from=builder /app/frontend/dist ./frontend/dist
 COPY --from=builder /app/backend/dist ./backend/dist
+COPY --from=builder /app/backend/node_modules ./backend/node_modules
 
-# Copy ecosystem.config.js and nginx.conf
+# Copy ecosystem.config.js and nginx.conf from root
 COPY ecosystem.config.js ./ecosystem.config.js
 COPY nginx.conf ./nginx.conf
 
-# Configure nginx: copy our nginx.conf to the nginx default config location
-# We'll remove the default and put ours.
-RUN rm /etc/nginx/http.d/default.conf
-COPY nginx.conf /etc/nginx/http.d/app.conf
+# Configure nginx: replace the default nginx.conf with our custom one
+RUN rm /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Expose ports: 80 for nginx, 3001 for backend (if needed for direct access, but we proxy via nginx)
-EXPOSE 80 3001
+# Expose ports: 3000 for nginx, 3001 for backend (if needed for direct access, but we proxy via nginx)
+EXPOSE 3000 3001
 
 # Use pm2-runtime to start the application (which will run both nginx and backend)
 # The ecosystem.config.js defines two apps: nginx and backend.
