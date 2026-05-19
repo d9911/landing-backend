@@ -1,7 +1,5 @@
 ┣ 📂.claude
 ┃ ┗ 📜settings.local.json
-┣ 📂.vscode
-┃ ┣ 📜server.js
 ┣ 📂backend
 ┃ ┣ 📂src
 ┃ ┃ ┣ 📂app
@@ -27,11 +25,16 @@
 ┃ ┣ 📜tsconfig.json
 ┃ ┗ 📜yarn.lock
 ┣ 📂frontend
-┃ ┣ 📂css
-┃ ┃ ┗ 📜styles.css
-┃ ┣ 📂js
-┃ ┃ ┗ 📜main.js
 ┃ ┣ 📂src
+┃ ┃ ┣ 📂app
+┃ ┃ ┃ ┣ 📂styles
+┃ ┃ ┃ ┃ ┗ 📜global.css
+┃ ┃ ┃ ┗ 📜main.ts
+┃ ┃ ┣ 📂features
+┃ ┃ ┃ ┣ 📂ai-speech
+┃ ┃ ┃ ┃ ┗ 📜speechService.ts
+┃ ┃ ┃ ┗ 📂feedback
+┃ ┃ ┃   ┗ 📜feedbackSubmit.ts
 ┃ ┃ ┗ 📂widgets
 ┃ ┃   ┣ 📂contact-form
 ┃ ┃   ┃ ┗ 📂ui
@@ -41,6 +44,7 @@
 ┃ ┣ 📜index.html
 ┃ ┣ 📜index.html.bak
 ┃ ┣ 📜package.json
+┃ ┣ 📜tsconfig.json
 ┃ ┣ 📜vite.config.ts
 ┃ ┗ 📜yarn.lock
 ┣ 📜.gitignore

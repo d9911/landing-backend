@@ -1,5 +1,5 @@
-# Декларируем абсолютно все цели как виртуальные, чтобы избежать конфликтов с именами файлов
-.PHONY: install i clean-ports dev-backend dev-frontend dev build lint init-env _run-backend _run-frontend
+# Декларируем абсолютно все цели как виртуальные
+.PHONY: install i clean-ports dev-backend dev-frontend dev build lint init-env _run-backend _run-frontend prod _start-backend _start-frontend
 
 # Конфигурационные порты экосистемы
 BACKEND_PORT=3001
@@ -56,12 +56,28 @@ build:
 
 # 8. Fullstack запуск "в один клик" (с очисткой портов и проверкой env)
 dev: clean-ports init-env
-	@echo "⚡ Запуск Fullstack-экосистемы..."
+	@echo "⚡ Запуск Fullstack-экосистемы (режим разработки)..."
 	@make -j2 _run-backend _run-frontend
 
-# Внутренние таргеты параллельного стрима
+# Внутренние таргеты параллельного стрима (Dev)
 _run-backend:
 	cd backend && yarn run dev
 
 _run-frontend:
 	cd frontend && yarn run dev
+
+# ---------------------------------------------------------
+# НОВЫЙ БЛОК: ЗАПУСК В PRODUCTION (ПОСЛЕ БИЛДА)
+# ---------------------------------------------------------
+
+# 9. Локальная эмуляция Production-среды
+prod: clean-ports init-env build
+	@echo "🟢 Запуск скомпилированной Production-версии..."
+	@make -j2 _start-backend _start-frontend
+
+# Внутренние таргеты параллельного стрима (Prod)
+_start-backend:
+	cd backend && yarn run start
+
+_start-frontend:
+	cd frontend && yarn run preview
