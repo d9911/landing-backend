@@ -81,3 +81,21 @@ _start-backend:
 
 _start-frontend:
 	cd frontend && yarn run preview
+
+# 10. PM2 production runtime
+pm2-start:
+	@echo "🚀 Запуск приложения через PM2..."
+	pm2 start ecosystem.config.js
+
+pm2-stop:
+	@echo "🛑 Остановка приложения в PM2..."
+	pm2 delete ecosystem.config.js
+
+pm2-logs:
+	@echo "📜 Просмотр логов PM2..."
+	pm2 logs
+
+# Альтернативный production-запуск через PM2
+prod-pm2: clean-ports init-env build
+	@echo "🟢 Запуск скомпилированной Production-версии через PM2..."
+	$(MAKE) pm2-start
