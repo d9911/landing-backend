@@ -15,7 +15,7 @@ const initializeTransporter = async () => {
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
     // Используем реальные учетные данные из .env
     transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.mailtrap.io',
+      host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || '2525'),
       secure: process.env.SMTP_SECURE === 'true', // true для 465, false для остальных портов
       auth: {
@@ -23,7 +23,7 @@ const initializeTransporter = async () => {
         pass: process.env.SMTP_PASS,
       },
     })
-    console.log('✅ Используется реальный SMTP-транспорт')
+    console.log('✅ Используется реальный SMTP-транспорт из .env')
     // Verify connection
     try {
       await transporter.verify()
@@ -73,8 +73,8 @@ app.post('/api/feedback', async (req, res) => {
   try {
     // 2. Транзакция №1: Уведомление для владельца сайта
     const ownerMailPayload = {
-      from: '"Portfolio API" <no-reply@d9911.pro>',
-      to: process.env.OWNER_EMAIL || 'test@gmail.com',
+      from: '"Portfolio API" <admin@d9911.com>',
+      to: process.env.OWNER_EMAIL || 'test@d9911.org',
       subject: '🔥 Новая заявка на разработку от ' + name,
       text: `Заявка:\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\nКомментарий: ${comment}`,
       html: `<h2>Новый лид в воронке портфолио</h2>
@@ -87,7 +87,7 @@ app.post('/api/feedback', async (req, res) => {
 
     // 3. Транзакция №2: Копия письма пользователю (Auto-reply confirmation)
     const userMailPayload = {
-      from: '"Den Gu Studio" <no-reply@d9911.pro>',
+      from: '"Den Gu Studio" <admin@d9911.com>',
       to: email,
       subject: 'Подтверждение получения обращения · Den Gu',
       text: `Здравствуйте, ${name}. Ваше обращение принято. Копия вашего комментария: ${comment}`,
@@ -101,12 +101,19 @@ app.post('/api/feedback', async (req, res) => {
     }
 
     // Высокопроизводительное параллельное выполнение независимых асинхронных операций
+    // Последовательное выполнение транзакций для обхода лимитов Mailtrap
     console.log('🔄 Отправка писем...')
-    const results = await Promise.all([
-      transporter.sendMail(ownerMailPayload),
-      transporter.sendMail(userMailPayload)
-    ])
-    console.log('✅ Письма отправлены:', results.map(r => r.messageId))
+
+    // Отправляем первое письмо и ждем завершения
+    const ownerResult = await transporter.sendMail(ownerMailPayload)
+    console.log('✅ Письмо владельцу отправлено:', ownerResult.messageId)
+
+
+    await new Promise((resolve) => setTimeout(resolve, 500))
+
+    // Отправляем второе письмо и ждем завершения
+    const userResult = await transporter.sendMail(userMailPayload)
+    console.log('✅ Копия пользователю отправлена:', userResult.messageId)
     return res.status(200).json({ success: true, message: 'Обе транзакции успешно выполнены по протоколу SMTP.' })
   } catch (error) {
     console.error('❌ Критический сбой SMTP Транспорта на сервере:', error)
