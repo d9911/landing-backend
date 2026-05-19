@@ -10,7 +10,7 @@ init-env:
 	@echo "📝 Проверка конфигурационных файлов .env..."
 	@if [ ! -f backend/.env ]; then \
 		cp backend/.env.example backend/.env 2>/dev/null || \
-		echo "PORT=$(BACKEND_PORT)\nOWNER_EMAIL=d.99113@gmail.com\nSMTP_HOST=smtp.mailtrap.io\nSMTP_PORT=2525\nSMTP_SECURE=false" > backend/.env; \
+		echo "PORT=$(BACKEND_PORT)\nOWNER_EMAIL=test@gmail.com\nSMTP_HOST=smtp.mailtrap.io\nSMTP_PORT=2525\nSMTP_SECURE=false" > backend/.env; \
 		echo "✅ Создан дефолтный backend/.env"; \
 	else \
 		echo "👉 Файл backend/.env уже существует."; \

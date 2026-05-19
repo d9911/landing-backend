@@ -9,16 +9,47 @@ const port = process.env.PORT || 3001
 app.use(cors())
 app.use(express.json())
 
-// Инициализация безопасного SMTP-транспорта
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST || 'smtp.mailtrap.io',
-  port: parseInt(process.env.SMTP_PORT || '2525'),
-  secure: process.env.SMTP_SECURE === 'true', // true для 465, false для остальных портов
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-})
+// Инициализация транспорта nodemailer
+let transporter
+const initializeTransporter = async () => {
+  if (process.env.SMTP_USER && process.env.SMTP_PASS) {
+    // Используем реальные учетные данные из .env
+    transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'smtp.mailtrap.io',
+      port: parseInt(process.env.SMTP_PORT || '2525'),
+      secure: process.env.SMTP_SECURE === 'true', // true для 465, false для остальных портов
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    })
+    console.log('✅ Используется реальный SMTP-транспорт')
+    // Verify connection
+    try {
+      await transporter.verify()
+      console.log('✅ SMTP транспорт успешно проверен')
+    } catch (verifyError) {
+      console.error('❌ Ошибка проверки SMTP транспорта:', verifyError)
+    }
+  } else {
+    // Для разработки и тестирования используем тестовый аккаунт Ethereal
+    const testAccount = await nodemailer.createTestAccount()
+    transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      secure: false,
+      auth: {
+        user: testAccount.user,
+        pass: testAccount.pass,
+      },
+    })
+    console.log('✅ Используется тестовый SMTP-транспорт (Ethereal)')
+    console.log(`📧 Просмотр_отправленных писем: https://ethereal.email/message`)
+  }
+}
+
+// Инициализируем транспорт перед запуском сервера
+initializeTransporter().catch(console.error)
 
 // Роут обработки формы обратной связи по спецификации ТЗ
 app.post('/api/feedback', async (req, res) => {
@@ -34,11 +65,16 @@ app.post('/api/feedback', async (req, res) => {
     return res.status(400).json({ error: 'Серверная ошибка: Передан некорректный формат email.' })
   }
 
+  // Убеждаемся, что транспорт инициализирован
+  if (!transporter) {
+    return res.status(500).json({ error: 'Серверная ошибка: SMTP-транспорт еще не инициализирован.' })
+  }
+
   try {
     // 2. Транзакция №1: Уведомление для владельца сайта
     const ownerMailPayload = {
       from: '"Portfolio API" <no-reply@d9911.pro>',
-      to: process.env.OWNER_EMAIL || 'd.99113@gmail.com',
+      to: process.env.OWNER_EMAIL || 'test@gmail.com',
       subject: '🔥 Новая заявка на разработку от ' + name,
       text: `Заявка:\nИмя: ${name}\nТелефон: ${phone}\nEmail: ${email}\nКомментарий: ${comment}`,
       html: `<h2>Новый лид в воронке портфолио</h2>
@@ -65,11 +101,19 @@ app.post('/api/feedback', async (req, res) => {
     }
 
     // Высокопроизводительное параллельное выполнение независимых асинхронных операций
-    await Promise.all([transporter.sendMail(ownerMailPayload), transporter.sendMail(userMailPayload)])
-
+    console.log('🔄 Отправка писем...')
+    const results = await Promise.all([
+      transporter.sendMail(ownerMailPayload),
+      transporter.sendMail(userMailPayload)
+    ])
+    console.log('✅ Письма отправлены:', results.map(r => r.messageId))
     return res.status(200).json({ success: true, message: 'Обе транзакции успешно выполнены по протоколу SMTP.' })
   } catch (error) {
-    console.error('Критический сбой SMTP Транспорта на сервере:', error)
+    console.error('❌ Критический сбой SMTP Транспорта на сервере:', error)
+    // Если ошибка связана с аутентификацией, дадим более конкретное сообщение
+    if (error.code === 'EAUTH' || error.response?.includes('535')) {
+      return res.status(500).json({ error: 'Ошибка аутентификации SMTP. Проверьте учетные данные в .env' })
+    }
     return res.status(500).json({ error: 'Критическая ошибка бэкенда при попытке отправки транзакционных писем.' })
   }
 })
