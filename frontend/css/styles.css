@@ -436,3 +436,27 @@ textarea.form-input {
   color: var(--colors-steel);
   text-align: center;
 }
+/* Состояние: Изящная деградация (Частичный успех) */
+.form-status.partial {
+  display: block;
+  background: var(--colors-cream);
+  border: 1px solid var(--colors-warn);
+}
+.status-success-part {
+  color: #1e6b31;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.status-warn-part {
+  color: #a87b1e;
+  border-top: 1px dashed var(--colors-beige-deep);
+  padding-top: 10px;
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+.form-status.warning {
+  display: block;
+  background: rgba(242, 219, 130, 0.2); /* var(--colors-warn) с прозрачностью */
+  color: #997300; /* Темно-горчичный для хорошей читаемости */
+  border: 1px solid var(--colors-warn);
+}

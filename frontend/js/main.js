@@ -1,4 +1,4 @@
-/* === ИНТЕГРАЦИЯ WEB SPEECH API ДЛЯ МАСТОДОНТ РОП === */
+
 const micTrigger = document.getElementById('mic-trigger')
 const micStatus = document.getElementById('mic-status')
 const liveTranscript = document.getElementById('live-transcript')
@@ -136,16 +136,28 @@ document.getElementById('contact-feedback-form').addEventListener('submit', asyn
     })
 
     const data = await response.json()
-
     if (response.ok) {
-      // Включение состояния Success
-      statusBanner.textContent = 'Успешно! Ваше сообщение зарегистрировано. Копия подтверждения отправлена на ваш Email.'
-      statusBanner.classList.add('success')
+      // Проверяем, есть ли флаг warning от бэкенда (частичный успех)
+      if (data.warning) {
+        statusBanner.innerHTML = `
+          <strong style="color: #b38b00;">✅ Заявка успешно отправлена разработчику!</strong><br>
+          <span style="font-size: 13px; margin-top: 6px; display: block;">
+            <b>⚠️ Предупреждение системы:</b> ${data.warning}
+          </span>
+        `
+        statusBanner.className = 'form-status warning' // Применяем оранжевый стиль
+      } else {
+        // Полный успех
+        statusBanner.textContent = data.message || 'Успешно! Ваше сообщение зарегистрировано. Копия подтверждения отправлена на ваш Email.'
+        statusBanner.className = 'form-status success'
+      }
+
+      // Очищаем форму в обоих случаях
       document.getElementById('contact-feedback-form').reset()
     } else {
-      // Обработка серверных ошибок валидации
+      // Ошибка сервера
       statusBanner.textContent = data.error || 'Ошибка сервера при валидации контракта.'
-      statusBanner.classList.add('error')
+      statusBanner.className = 'form-status error'
     }
   } catch (err) {
     // Обработка сетевых сбоев

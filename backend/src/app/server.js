@@ -9,22 +9,20 @@ const port = process.env.PORT || 3001
 app.use(cors())
 app.use(express.json())
 
-// Инициализация транспорта nodemailer
 let transporter
 const initializeTransporter = async () => {
   if (process.env.SMTP_USER && process.env.SMTP_PASS) {
-    // Используем реальные учетные данные из .env
     transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: parseInt(process.env.SMTP_PORT || '2525'),
-      secure: process.env.SMTP_SECURE === 'true', // true для 465, false для остальных портов
+      secure: process.env.SMTP_SECURE === 'true',
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     })
     console.log('✅ Используется реальный SMTP-транспорт из .env')
-    // Verify connection
+
     try {
       await transporter.verify()
       console.log('✅ SMTP транспорт успешно проверен')
@@ -32,7 +30,6 @@ const initializeTransporter = async () => {
       console.error('❌ Ошибка проверки SMTP транспорта:', verifyError)
     }
   } else {
-    // Для разработки и тестирования используем тестовый аккаунт Ethereal
     const testAccount = await nodemailer.createTestAccount()
     transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
@@ -48,14 +45,11 @@ const initializeTransporter = async () => {
   }
 }
 
-// Инициализируем транспорт перед запуском сервера
 initializeTransporter().catch(console.error)
 
-// Роут обработки формы обратной связи по спецификации ТЗ
 app.post('/api/feedback', async (req, res) => {
   const { name, phone, email, comment } = req.body
 
-  // 1. Строгая валидация входящего контракта данных на стороне сервера
   if (!name || !phone || !email || !comment) {
     return res.status(400).json({ error: 'Серверная ошибка: Все поля (имя, телефон, email, комментарий) обязательны.' })
   }
@@ -65,13 +59,11 @@ app.post('/api/feedback', async (req, res) => {
     return res.status(400).json({ error: 'Серверная ошибка: Передан некорректный формат email.' })
   }
 
-  // Убеждаемся, что транспорт инициализирован
   if (!transporter) {
     return res.status(500).json({ error: 'Серверная ошибка: SMTP-транспорт еще не инициализирован.' })
   }
 
   try {
-    // 2. Транзакция №1: Уведомление для владельца сайта
     const ownerMailPayload = {
       from: '"Portfolio API" <admin@d9911.com>',
       to: process.env.OWNER_EMAIL || 'test@d9911.org',
@@ -85,7 +77,6 @@ app.post('/api/feedback', async (req, res) => {
                   <p style="background:#f5f2eb; padding:12px; border-left:4px solid #ff7a17;">${comment}</p>`,
     }
 
-    // 3. Транзакция №2: Копия письма пользователю (Auto-reply confirmation)
     const userMailPayload = {
       from: '"Den Gu Studio" <admin@d9911.com>',
       to: email,
@@ -99,25 +90,38 @@ app.post('/api/feedback', async (req, res) => {
                       <p>В ближайшее время я свяжусь с вами по номеру телефона: <b>${phone}</b>.</p>
                   </div>`,
     }
+    try {
+      console.log('🔄 Отправка основного письма...')
+      const ownerResult = await transporter.sendMail(ownerMailPayload)
+      console.log('✅ Письмо владельцу отправлено:', ownerResult.messageId)
 
-    // Высокопроизводительное параллельное выполнение независимых асинхронных операций
-    // Последовательное выполнение транзакций для обхода лимитов Mailtrap
-    console.log('🔄 Отправка писем...')
+      await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    // Отправляем первое письмо и ждем завершения
-    const ownerResult = await transporter.sendMail(ownerMailPayload)
-    console.log('✅ Письмо владельцу отправлено:', ownerResult.messageId)
+      let userWarning = null
+      try {
+        const userResult = await transporter.sendMail(userMailPayload)
+        console.log('✅ Копия пользователю отправлена:', userResult.messageId)
+      } catch (err) {
+        console.warn('⚠️ Сбой отправки копии (лимиты Mailtrap):', err.message)
 
+        userWarning = 'Основная заявка доставлена владельцу, но автоответ заблокирован лимитами тестового почтового сервера.'
+      }
 
-    await new Promise((resolve) => setTimeout(resolve, 500))
-
-    // Отправляем второе письмо и ждем завершения
-    const userResult = await transporter.sendMail(userMailPayload)
-    console.log('✅ Копия пользователю отправлена:', userResult.messageId)
-    return res.status(200).json({ success: true, message: 'Обе транзакции успешно выполнены по протоколу SMTP.' })
+      return res.status(200).json({
+        success: true,
+        message: 'Ваше сообщение успешно зарегистрировано на сервере!',
+        warning: userWarning,
+      })
+    } catch (error) {
+      console.error('❌ Критический сбой SMTP Транспорта на сервере:', error)
+      if (error.code === 'EAUTH' || error.response?.includes('535')) {
+        return res.status(500).json({ error: 'Ошибка аутентификации SMTP. Проверьте учетные данные в .env' })
+      }
+      return res.status(500).json({ error: 'Критическая ошибка бэкенда при попытке отправки писем.' })
+    }
   } catch (error) {
     console.error('❌ Критический сбой SMTP Транспорта на сервере:', error)
-    // Если ошибка связана с аутентификацией, дадим более конкретное сообщение
+
     if (error.code === 'EAUTH' || error.response?.includes('535')) {
       return res.status(500).json({ error: 'Ошибка аутентификации SMTP. Проверьте учетные данные в .env' })
     }
