@@ -1,30 +1,54 @@
-├── backend/
-│   ├── src/
-│   │   ├── app/
-│   │   │   └── server.js                  # Точка входа Express-сервера и роутинг
-│   │   ├── features/
-│   │   │   └── feedback/
-│   │   │       └── feedback.controller.js # Валидация и параллельная отправка почты via SMTP
-│   │   └── shared/
-│   │       └── utils/
-│   │           └── email.transporter.js   # Конфигурация пула соединений Nodemailer
-│   ├── .env.example                       # Перечень переменных окружения
-│   └── package.json                       # Конфигурация бэкенд-зависимостей
-│
-├── frontend/
-│   ├── src/
-│   │   ├── app/
-│   │   │   └── styles/
-│   │   │       └── global.css             # Глобальные токены и шрифтовые стили Mistral AI
-│   │   ├── pages/
-│   │   │   └── home/
-│   │   │       └── ui/home-page.html      # Композиция виджетов на главной странице
-│   │   ├── widgets/
-│   │   │   ├── header/                    # Навигационная панель с индикаторами
-│   │   │   ├── profile/                   # Блок «Информация о себе» на базе CV
-│   │   │   ├── mastodont-rop/             # Интерактивный AI-компонент анализа звонков
-│   │   │   ├── contact-form/              # Валидируемая форма обратной связи
-│   │   │   └── footer/                    # Подвал с фирменной sunset-лентой
-│   │   └── shared/
-│   │       ├── ui/
-│   │           └── components.css         # Универсальные атомарные UI-компоненты (кнопки, инпуты)
+┣ 📂.claude
+┃ ┗ 📜settings.local.json
+┣ 📂.vscode
+┃ ┣ 📜server.js
+┣ 📂backend
+┃ ┣ 📂src
+┃ ┃ ┣ 📂app
+┃ ┃ ┃ ┣ 📜app.ts
+┃ ┃ ┃ ┗ 📜server.ts
+┃ ┃ ┣ 📂features
+┃ ┃ ┃ ┗ 📂feedback
+┃ ┃ ┃   ┗ 📂send
+┃ ┃ ┃     ┣ 📜controller.ts
+┃ ┃ ┃     ┣ 📜dto.ts
+┃ ┃ ┃     ┗ 📜useCase.ts
+┃ ┃ ┣ 📂infrastructure
+┃ ┃ ┃ ┗ 📂mail
+┃ ┃ ┃   ┗ 📜transporter.ts
+┃ ┃ ┣ 📂routes
+┃ ┃ ┃ ┗ 📜index.ts
+┃ ┃ ┗ 📂shared
+┃ ┃   ┗ 📂config
+┃ ┃     ┗ 📜index.ts
+┃ ┣ 📜.env
+┃ ┣ 📜.env.test
+┃ ┣ 📜package.json
+┃ ┣ 📜tsconfig.json
+┃ ┗ 📜yarn.lock
+┣ 📂frontend
+┃ ┣ 📂css
+┃ ┃ ┗ 📜styles.css
+┃ ┣ 📂js
+┃ ┃ ┗ 📜main.js
+┃ ┣ 📂src
+┃ ┃ ┗ 📂widgets
+┃ ┃   ┣ 📂contact-form
+┃ ┃   ┃ ┗ 📂ui
+┃ ┃   ┣ 📂feedback-form
+┃ ┃   ┣ 📂footer
+┃ ┃   ┗ 📂mastodont-rop
+┃ ┣ 📜index.html
+┃ ┣ 📜index.html.bak
+┃ ┣ 📜package.json
+┃ ┣ 📜vite.config.ts
+┃ ┗ 📜yarn.lock
+┣ 📜.gitignore
+┣ 📜.prettierrc
+┣ 📜data.tree
+┣ 📜LICENSE
+┣ 📜makefile
+┣ 📜package.json
+┣ 📜README.md
+┣ 📜tz.md
+┗ 📜tz.txt

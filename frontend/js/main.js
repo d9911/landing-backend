@@ -1,4 +1,3 @@
-
 const micTrigger = document.getElementById('mic-trigger')
 const micStatus = document.getElementById('mic-status')
 const liveTranscript = document.getElementById('live-transcript')
@@ -36,7 +35,6 @@ if (!SpeechRecognition) {
     }
     liveTranscript.innerHTML = `<span style="color:#ffffff">${finalTranscript}</span><span style="color:var(--colors-steel)">${interimTranscript}</span>`
 
-    // Детерминированный локальный парсинг речевых паттернов для симуляции ИИ
     evaluateSpeechText(finalTranscript.toLowerCase())
   }
 
@@ -96,6 +94,7 @@ function evaluateSpeechText(text) {
 }
 
 /* === ФУЛЛ-ЦИКЛ ОБРАБОТКИ ФОРМЫ ОБРАТНОЙ СВЯЗИ === */
+/* === ФУЛЛ-ЦИКЛ ОБРАБОТКИ ФОРМЫ ОБРАТНОЙ СВЯЗИ === */
 document.getElementById('contact-feedback-form').addEventListener('submit', async function (e) {
   e.preventDefault()
 
@@ -110,21 +109,21 @@ document.getElementById('contact-feedback-form').addEventListener('submit', asyn
   statusBanner.className = 'form-status'
   statusBanner.style.display = 'none'
 
-  // Нативная валидация на стороне клиента
   if (!name || !phone || !email || !comment) {
+    statusBanner.style.display = ''
     statusBanner.textContent = 'Ошибка: Все поля формы обязательны для заполнения.'
-    statusBanner.classList.add('error')
+    statusBanner.className = 'form-status error'
     return
   }
 
   const emailValidator = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailValidator.test(email)) {
+    statusBanner.style.display = ''
     statusBanner.textContent = 'Ошибка: Указан некорректный формат почтового адреса.'
-    statusBanner.classList.add('error')
+    statusBanner.className = 'form-status error'
     return
   }
 
-  // Включение состояния Loading
   submitBtn.disabled = true
   submitBtn.querySelector('span').textContent = 'Отправка данных на API...'
 
@@ -136,35 +135,33 @@ document.getElementById('contact-feedback-form').addEventListener('submit', asyn
     })
 
     const data = await response.json()
+
+    statusBanner.style.display = ''
+
     if (response.ok) {
-      // Проверяем, есть ли флаг warning от бэкенда (частичный успех)
       if (data.warning) {
         statusBanner.innerHTML = `
-          <strong style="color: #b38b00;">✅ Заявка успешно отправлена разработчику!</strong><br>
-          <span style="font-size: 13px; margin-top: 6px; display: block;">
+          <strong style="color: #997300;">✅ Заявка успешно отправлена разработчику!</strong><br>
+          <span style="font-size: 13px; margin-top: 6px; display: block; color: #b38b00;">
             <b>⚠️ Предупреждение системы:</b> ${data.warning}
           </span>
         `
-        statusBanner.className = 'form-status warning' // Применяем оранжевый стиль
+        statusBanner.className = 'form-status warning'
       } else {
-        // Полный успех
         statusBanner.textContent = data.message || 'Успешно! Ваше сообщение зарегистрировано. Копия подтверждения отправлена на ваш Email.'
         statusBanner.className = 'form-status success'
       }
 
-      // Очищаем форму в обоих случаях
       document.getElementById('contact-feedback-form').reset()
     } else {
-      // Ошибка сервера
       statusBanner.textContent = data.error || 'Ошибка сервера при валидации контракта.'
       statusBanner.className = 'form-status error'
     }
   } catch (err) {
-    // Обработка сетевых сбоев
+    statusBanner.style.display = ''
     statusBanner.textContent = 'Сбой сети: Не удалось соединиться с API-сервером бэкенда.'
-    statusBanner.classList.add('error')
+    statusBanner.className = 'form-status error'
   } finally {
-    // Выход из состояния Loading
     submitBtn.disabled = false
     submitBtn.querySelector('span').textContent = 'Отправить сообщение'
   }
