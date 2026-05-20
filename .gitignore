@@ -13,3 +13,5 @@ frontend/dist
 */yarn.lock
 .claude/**
 backend/dist/**
+*/package-lock.json
+package-lock.json
