@@ -5,6 +5,7 @@
   "type": "module",
   "main": "src/app/server.js",
   "scripts": {
+    "dev-w":"HOST=0.0.0.0 tsx watch src/app/server.ts",
     "start": "node dist/app/server.js",
     "dev": "tsx watch src/app/server.ts",
     "build": "tsc"

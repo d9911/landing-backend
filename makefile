@@ -66,6 +66,16 @@ _run-backend:
 _run-frontend:
 	cd frontend && yarn run dev
 
+dev-w: clean-ports init-env
+	@echo "⚡ Запуск Fullstack-экосистемы (режим разработки)..."
+	@make -j2 _run-backend _run-frontend
+
+_run-backend_win:
+	cd backend && yarn run dev-w
+
+_run-frontend_win:
+	cd frontend && yarn run dev-w
+
 # ---------------------------------------------------------
 # НОВЫЙ БЛОК: ЗАПУСК В PRODUCTION (ПОСЛЕ БИЛДА)
 # ---------------------------------------------------------
@@ -108,3 +118,4 @@ windows:
 	make init
 	make dev:init
 	npx localtunnel --port 5173
+	npx ngrok http 5173
