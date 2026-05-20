@@ -2,27 +2,31 @@
   "name": "ai-interface",
   "version": "1.0.0",
   "description": "Минималистичный ИИ-интерфейс с поддержкой голосового ввода (Web Speech API) и динамическим выбором моделей (OpenRouter, OpenAI, DeepSeek).",
+
   "scripts": {
     "start": "make dev",
+    "dev": "make dev",
     "install:all": "make install",
     "dev:backend": "make dev-backend",
-    "dev:frontend": "make dev-frontend"
+    "dev:frontend": "make dev-frontend",
+    "build": "make build",
+    "clean": "make clean"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/d9911/ai-interface.git"
   },
   "keywords": [
-    "react",
-    "nodejs",
-    "express",
     "ai",
+    "llm",
     "chatgpt",
-    "openrouter",
+    "openai",
     "deepseek",
+    "openrouter",
+    "web-speech-api",
     "voice-recognition",
-    "tailwind-css",
-    "xai-design"
+    "voice-assistant",
+    "chatbot"
   ],
   "author": {
     "name": "Denis Gutsuliak",
@@ -37,6 +41,10 @@
     }
   ],
   "license": "GPL-3.0-or-later",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
   "bugs": {
     "url": "https://github.com/d9911/ai-interface/issues"
   },
