@@ -99,3 +99,12 @@ pm2-logs:
 prod-pm2: clean-ports init-env build
 	@echo "🟢 Запуск скомпилированной Production-версии через PM2..."
 	$(MAKE) pm2-start
+
+
+windows:
+	wsl -d Ubuntu
+	sudo apt update && sudo apt install make nodejs npm -y
+	npm install -g yarn
+	make init
+	make dev:init
+	npx localtunnel --port 5173
