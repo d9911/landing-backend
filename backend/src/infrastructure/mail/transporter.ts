@@ -11,6 +11,10 @@ export const transporter = nodemailer.createTransport({
   },
 });
 
+// Log which SMTP method is being used (without password)
+const smtpMethod = process.env.SMTP_METHOD || 'primary';
+console.log(`📧 Используется SMTP метод: ${smtpMethod}, host: ${config.smtp.host}, port: ${config.smtp.port}, user: ${config.smtp.user || '(empty)'}, secure: ${config.smtp.secure}`);
+
 export const verifyMailConnection = async () => {
   try {
     await transporter.verify();
