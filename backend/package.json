@@ -1,6 +1,7 @@
 {
   "name": "dengu-landing-backend",
   "version": "1.0.0",
+  "license": "GPL-3.0-or-later",
   "type": "module",
   "main": "src/app/server.js",
   "scripts": {
@@ -19,6 +20,7 @@
     "@types/express": "^5.0.6",
     "@types/node": "^25.9.0",
     "@types/nodemailer": "^8.0.0",
+    "license-checker": "^25.0.1",
     "tsx": "^4.22.2",
     "typescript": "^6.0.3"
   }
