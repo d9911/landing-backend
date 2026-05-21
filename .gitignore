@@ -15,3 +15,5 @@ frontend/dist
 backend/dist/**
 */package-lock.json
 package-lock.json
+CLAUDE.md
+*/output.txt

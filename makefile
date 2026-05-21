@@ -112,7 +112,9 @@ prod-pm2: clean-ports init-env build
 
 
 windows:
-	netsh advfirewall firewall add rule name="WSL Vite Frontend 5173" dir=in action=allow protocol=TCP localport=5173
+	netsh interface portproxy delete v4tov4 listenport=5173 listenaddress=192.168.1.249
+	netsh interface portproxy add v4tov4 listenport=5173 listenaddress=192.168.1.249 connectport=5173 connectaddress=172.25.225.109
+	netsh advfirewall firewall add rule name="WSL Frontend Link 5173" dir=in action=allow protocol=TCP localport=5173
 	ip addr show eth0 | grep "inet "
 	netsh interface portproxy add v4tov4 listenport=5173 listenaddress=192.168.1.249 connectport=5173 connectaddress=172.25.225.109
 	wsl -d Ubuntu
@@ -122,5 +124,3 @@ windows:
 	make dev:init
 	npx localtunnel --port 5173
 	npx ngrok http 5173
-	netsh interface portproxy delete v4tov4 listenport=5173 listenaddress=192.168.1.249
-#сбросить мост, если что-то пойдет не так:

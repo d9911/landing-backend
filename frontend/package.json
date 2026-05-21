@@ -4,13 +4,14 @@
   "license": "GPL-3.0-or-later",
   "type": "module",
   "scripts": {
-    "dev-w": "vite --host 192.168.1.249 --port 5173",
+    "dev-w": "vite --host 0.0.0.0 --port 5173",
     "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview",
     "start": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^25.9.1",
     "typescript": "^6.0.3",
     "vite": "^5.2.11"
   }
