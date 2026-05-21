@@ -1,5 +1,5 @@
 # Декларируем абсолютно все цели как виртуальные
-.PHONY: install i clean-ports dev-backend dev-frontend dev build lint init-env _run-backend _run-frontend prod _start-backend _start-frontend
+.PHONY: install i clean-ports dev-backend dev-frontend dev build lint init-env _run-backend _run-frontend prod _start-backend _start-frontend dev-w
 
 # Конфигурационные порты экосистемы
 BACKEND_PORT=3001
@@ -68,7 +68,7 @@ _run-frontend:
 
 dev-w: clean-ports init-env
 	@echo "⚡ Запуск Fullstack-экосистемы (режим разработки)..."
-	@make -j2 _run-backend _run-frontend
+	@make -j2 _run-backend_win _run-frontend_win
 
 _run-backend_win:
 	cd backend && yarn run dev-w
@@ -112,6 +112,9 @@ prod-pm2: clean-ports init-env build
 
 
 windows:
+	netsh advfirewall firewall add rule name="WSL Vite Frontend 5173" dir=in action=allow protocol=TCP localport=5173
+	ip addr show eth0 | grep "inet "
+	netsh interface portproxy add v4tov4 listenport=5173 listenaddress=192.168.1.249 connectport=5173 connectaddress=172.25.225.109
 	wsl -d Ubuntu
 	sudo apt update && sudo apt install make nodejs npm -y
 	npm install -g yarn
@@ -119,3 +122,5 @@ windows:
 	make dev:init
 	npx localtunnel --port 5173
 	npx ngrok http 5173
+	netsh interface portproxy delete v4tov4 listenport=5173 listenaddress=192.168.1.249
+#сбросить мост, если что-то пойдет не так:

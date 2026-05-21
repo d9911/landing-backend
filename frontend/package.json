@@ -7,7 +7,8 @@
     "dev-w": "vite --host 192.168.1.249 --port 5173",
     "dev": "vite --host",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview"
   },
   "devDependencies": {
     "typescript": "^6.0.3",
