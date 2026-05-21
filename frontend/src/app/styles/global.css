@@ -411,9 +411,10 @@ textarea.form-input {
   font-size: 13px;
   color: var(--colors-steel);
 }
+
 .mastodont-dashboard {
   background-color: var(--colors-surface);
-  border: 1px solid var(--colors-surface-soft);
+  border: 1px solid var(--colors-border);
   border-radius: 16px;
   padding: 32px;
   margin-top: 24px;
@@ -423,7 +424,7 @@ textarea.form-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--colors-surface-soft);
+  border-bottom: 1px solid var(--colors-border-strong);
   padding-bottom: 20px;
   margin-bottom: 24px;
 }
@@ -436,7 +437,7 @@ textarea.form-input {
 
 .brand-bolt {
   background-color: var(--colors-primary);
-  color: #ffffff;
+  color: #ffffff; 
   padding: 4px 8px;
   font-weight: 800;
   font-size: 12px;
@@ -452,7 +453,7 @@ textarea.form-input {
 
 .kpi-card {
   background-color: var(--colors-bg);
-  border: 1px solid rgba(31, 41, 55, 0.6);
+  border: 1px solid var(--colors-border);
   padding: 16px 20px;
   border-radius: 10px;
 }
@@ -466,6 +467,7 @@ textarea.form-input {
   font-size: 24px;
   font-weight: 700;
   margin-top: 4px;
+  color: var(--colors-text);
 }
 
 .live-panel {
@@ -475,8 +477,8 @@ textarea.form-input {
 }
 
 .voice-control-box {
-  background-color: rgba(11, 15, 25, 0.4);
-  border: 1px solid var(--colors-surface-soft);
+  background-color: var(--colors-bg);
+  border: 1px solid var(--colors-border);
   padding: 24px;
   border-radius: 12px;
   text-align: center;
@@ -508,19 +510,19 @@ textarea.form-input {
 }
 
 .transcript-box {
-  background-color: var(--colors-bg);
-  border: 1px solid var(--colors-surface-soft);
+  background-color: var(--colors-surface-soft);
+  border: 1px solid var(--colors-border);
   padding: 16px;
   border-radius: 8px;
   text-align: left;
   min-height: 80px;
   font-size: 14px;
-  color: var(--colors-steel);
+  color: var(--colors-text-muted);
 }
 
 .analysis-output {
-  background-color: #0b0f19;
-  border: 1px solid var(--colors-surface-soft);
+  background-color: var(--colors-bg);
+  border: 1px solid var(--colors-border);
   padding: 24px;
   border-radius: 12px;
 }

@@ -1,0 +1,211 @@
+.experience-section {
+  position: relative;
+  overflow: hidden;
+  padding: 80px 0;
+}
+
+.slider-controls-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.slider-arrows {
+  display: flex;
+  gap: 12px;
+}
+
+.slider-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: var(--colors-surface);
+  border: 1px solid var(--colors-border-strong);
+  color: var(--colors-text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  font-size: 18px;
+  transition: all 0.25s ease;
+  z-index: 10;
+}
+
+.slider-arrow-btn:hover {
+  background-color: var(--colors-primary);
+  color: #ffffff;
+  border-color: var(--colors-primary);
+  transform: scale(1.05);
+}
+
+.slider-arrow-btn:active {
+  transform: scale(0.95);
+}
+
+.experience-slider-track {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  padding: 12px 4px 32px 4px;
+  margin: 0 -4px;
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.experience-slider-track::-webkit-scrollbar {
+  display: none;
+}
+.project-slide-card {
+  flex: 0 0 calc(50% - 14px);
+  min-width: 420px;
+  scroll-snap-align: start;
+  background-color: var(--colors-surface);
+  border: 1px solid var(--colors-border);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease;
+  position: relative;
+}
+
+body:has(#theme-toggle:checked) .project-slide-card {
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+.project-slide-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--colors-primary);
+  box-shadow: 0 12px 30px rgba(255, 122, 23, 0.06);
+}
+
+.card-project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--colors-border);
+  padding-bottom: 16px;
+  transition: border-color 0.3s ease;
+}
+
+.company-meta h4 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--colors-text);
+  transition: color 0.3s ease;
+}
+
+.company-meta p {
+  font-size: 13px;
+  color: var(--colors-primary);
+  font-family: var(--font-mono);
+  margin-top: 2px;
+}
+
+.project-period {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  background-color: var(--colors-bg);
+  border: 1px solid var(--colors-border);
+  padding: 4px 10px;
+  border-radius: 6px;
+  color: var(--colors-steel);
+  white-space: nowrap;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.project-role-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--colors-text);
+  transition: color 0.3s ease;
+}
+
+.project-desc-text {
+  font-size: 14px;
+  color: var(--colors-text-muted);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  transition: color 0.3s ease;
+}
+
+.project-card-tech-footer {
+  margin-top: auto;
+}
+
+.project-tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tech-mini-tag {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  background-color: var(--colors-bg);
+  border: 1px solid var(--colors-border);
+  color: var(--colors-text);
+  padding: 3px 8px;
+  border-radius: 4px;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+@media (max-width: 992px) {
+  .project-slide-card {
+    flex: 0 0 calc(100% - 10px); /
+    min-width: calc(100% - 10px);
+    padding: 28px;
+  }
+  .experience-slider-track {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 576px) {
+  .slider-arrows {
+    display: none;
+  }
+  .slider-controls-wrapper {
+    margin-bottom: 20px;
+  }
+  .project-slide-card {
+    padding: 20px;
+    border-radius: 12px;
+  }
+  .card-project-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .project-period {
+    align-self: flex-start;
+  }
+  .company-meta h4 {
+    font-size: 18px;
+  }
+}
+
+.slider-arrow-btn:disabled,
+.slider-arrow-btn.disabled {
+  opacity: 0.3 !important;
+  cursor: default !important;
+  pointer-events: none !important; 
+  background-color: var(--colors-surface) !important;
+  border-color: var(--colors-border-strong) !important;
+}

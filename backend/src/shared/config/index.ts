@@ -11,7 +11,7 @@ const getSmtpConfig = () => {
       secure: process.env.SMTP_SECURE_2 === 'true',
     };
   }
-  // primary (default)
+  // primary https://mailtrap.io/sandboxes/4640356/messages/5499835746
   return {
     host: process.env.SMTP_HOST || 'smtp.mailtrap.io',
     port: parseInt(process.env.SMTP_PORT || '2525', 10),

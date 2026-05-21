@@ -81,33 +81,321 @@
 
     <section id="experience" class="experience-section">
       <div class="container">
-        <h2 class="section-title serif-head">Профессиональный опыт</h2>
-        <div class="app-grid">
-          <div class="app-card">
-            <div class="app-num">01</div>
-            <h3>Senior Fullstack Engineer</h3>
-            <p>
-              Технокорп, г. Москва — 2022 — настоящее время<br />
-              Руководство разработкой высоконагруженных B2B-платформ на стеке NestJS, PostgreSQL, React. Архитектура микросервисов, интеграция ИИ для автоматизации бизнес-процессов, оптимизация
-              производительности на 40%.
-            </p>
+        <div class="slider-controls-wrapper">
+          <h2 class="section-title serif-head" style="margin-bottom: 0">Профессиональный опыт</h2>
+          <div class="slider-arrows">
+            <button class="slider-arrow-btn" id="slide-left-trigger" aria-label="Назад">←</button>
+            <button class="slider-arrow-btn" id="slide-right-trigger" aria-label="Вперед">→</button>
           </div>
-          <div class="app-card">
-            <div class="app-num">02</div>
-            <h3>Fullstack Developer</h3>
-            <p>
-              Иннотех, г. Санкт-Петербург — 2020 — 2022<br />
-              Разработка enterprise-систем для финансового сектора на PHP/Laravel и Vue.js. Внедрение CI/CD, Docker, Kubernetes. Увеличение скорости доставки функций в 2 раза благодаря методологии
-              FSD.
-            </p>
+        </div>
+
+        <div class="experience-slider-track" id="experience-slider-track">
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>Mango-Office / SimbirSoft</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">B2B Платформы и Конструктор сайтов</div>
+              <p class="project-desc-text">
+                Разработал визуальный редактор с drag-and-drop, систему шаблонов и версионирования страниц. Реализовал full-stack интеграцию с Bitrix API и механизм публикации/импорта контента. Провёл
+                миграцию с jQuery на Vue + TypeScript. Внедрил мониторинг через Prometheus/Grafana.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Vue 3</span><span class="tech-mini-tag">TypeScript</span> <span class="tech-mini-tag">Vite</span><span class="tech-mini-tag">Bitrix</span>
+                <span class="tech-mini-tag">PHP</span><span class="tech-mini-tag">Gulp</span>
+              </div>
+            </div>
           </div>
-          <div class="app-card">
-            <div class="app-num">03</div>
-            <h3>Junior Web Developer</h3>
-            <p>
-              ВебСтудия, г. Минск — 2018 — 2020<br />
-              Создание адаптивных веб-сайтов и веб-приложений на HTML5, CSS3, JavaScript. Работа с API, интеграция платежных систем. Основы clean architecture и принципы SOLID.
-            </p>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>Ecosystem AI Bot</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Rust Backend Developer</div>
+              <p class="project-desc-text">
+                Разработал мультиязычного Telegram-бота с нуля с поддержкой 4 языков (RU/EN/ES/KO). Построил модульную архитектуру с FSM для пошаговых диалогов. Реализовал persistence layer с
+                сериализацией данных через Serde.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Rust</span><span class="tech-mini-tag">Tokio</span> <span class="tech-mini-tag">teloxide</span><span class="tech-mini-tag">Serde</span>
+                <span class="tech-mini-tag">FSM</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>CamiñoTaxi</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Служба такси с real-time отслеживанием</div>
+              <p class="project-desc-text">
+                Разработал систему распределения заявок "первый освободился — первый взял". Внедрил Socket.io для передачи местоположения водителей. Развёрнул 3 виртуальные машины в Proxmox под
+                Kubernetes. Обеспечил безопасность через CSRF, JWT и OWASP стандарты.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Next.js 15</span><span class="tech-mini-tag">Express</span> <span class="tech-mini-tag">Socket.io</span><span class="tech-mini-tag">Redis</span>
+                <span class="tech-mini-tag">Docker</span><span class="tech-mini-tag">Proxmox</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>LinkForge</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Система управления ссылками</div>
+              <p class="project-desc-text">
+                Организовал код по Clean Architecture и Hexagonal паттернам. Внедрил Repository и Service Layer для абстракции данных. Покрыл ключевые модули unit- и интеграционными тестами с
+                использованием pytest.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Python</span><span class="tech-mini-tag">Flask</span> <span class="tech-mini-tag">SQLAlchemy</span><span class="tech-mini-tag">PostgreSQL</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>smart-consulting.ru</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Платформа взаимодействия с МФЦ</div>
+              <p class="project-desc-text">
+                Разработал механизм серверной валидации, исключивший дублирование предзаписей. Интегрировал визуализацию данных через D3.js и ECharts для аналитических отчётов. Настроил
+                Docker-окружение и Verdaccio для ускорения разработки.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Vue 2</span><span class="tech-mini-tag">Vuex</span> <span class="tech-mini-tag">Laravel</span><span class="tech-mini-tag">PHP</span>
+                <span class="tech-mini-tag">Element UI</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>Geometry.ooo</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Платформа противодействия коррупции</div>
+              <p class="project-desc-text">
+                Разработал интерфейсы для обработки BigData и ответа на запросы. Внедрил систему генерации документов из JSON (docxtemplater). Настроил мониторинг Sentry/Instana с Web Vitals.
+                Интегрировал real-time обновления через WebSocket (SockJS).
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Vue 3</span><span class="tech-mini-tag">Pinia</span> <span class="tech-mini-tag">Quasar</span><span class="tech-mini-tag">TypeScript</span>
+                <span class="tech-mini-tag">amCharts</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>algoritmika.org</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Образовательная платформа для детей</div>
+              <p class="project-desc-text">
+                Создал 15+ страниц с нуля, обеспечив Pixel Perfect верстку по макетам Figma. Устранил разрыв между мобильными приложениями и веб-версией через адаптивный дизайн. Внедрил систему
+                тестирования (Jest, Puppeteer) и pre-commit хуки (Husky).
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Nuxt.js</span><span class="tech-mini-tag">Vue.js</span> <span class="tech-mini-tag">SCSS</span><span class="tech-mini-tag">Jest</span>
+                <span class="tech-mini-tag">Puppeteer</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>SDB</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Платформа транскрибирования медиа</div>
+              <p class="project-desc-text">
+                Внедрил микрофронтенды через Module Federation для автономного деплоя частей системы. Реализовал Feature-Sliced Design для гибкого масштабирования. Настроил GitLab CI/CD pipeline и
+                развёртывание фронтенда в Kubernetes.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">React</span><span class="tech-mini-tag">Module Federation</span> <span class="tech-mini-tag">Docker</span><span class="tech-mini-tag">Kubernetes</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>Группа компаний ЦРТ</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Платформа взаимодействия с AI</div>
+              <p class="project-desc-text">
+                Создал интерактивный чат для общения с AI моделями. Разработал кастомные графики для отображения специфических данных системы. Реализовал безопасное отображение и редактирование SQL и
+                Markdown файлов на стороне клиента.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">React</span><span class="tech-mini-tag">TypeScript</span>
+                <span class="tech-mini-tag">Redux Toolkit</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>Росатом LIFE</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Социальная сеть корпорации</div>
+              <p class="project-desc-text">
+                Разработал функционал пользовательских профилей с гибкими правами доступа. Внедрил real-time уведомления через Socket.io. Создал адаптивный интерфейс по макетам Figma для различных
+                устройств.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">React</span><span class="tech-mini-tag">Redux Toolkit</span> <span class="tech-mini-tag">Socket.io</span><span class="tech-mini-tag">Ant Design</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>GeneratorCV</h4>
+                  <p>SimbirSoft Outstaffing</p>
+                </div>
+                <span class="project-period">2023 – 2026</span>
+              </div>
+              <div class="project-role-title">Платформа генерации резюме</div>
+              <p class="project-desc-text">
+                Перестроил архитектуру по Feature-Sliced Design, обеспечив долгосрочную масштабируемость. Разработал новые компоненты, улучшив UX и ускорив процесс генерации резюме. Оптимизировал
+                управление состоянием через Redux Toolkit.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">React</span><span class="tech-mini-tag">TypeScript</span> <span class="tech-mini-tag">Redux Toolkit</span><span class="tech-mini-tag">Hook Form</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>3205.team</h4>
+                  <p>High-Traffic Media Core</p>
+                </div>
+                <span class="project-period">09.2022 – 05.2023</span>
+              </div>
+              <div class="project-role-title">Full-stack Developer</div>
+              <p class="project-desc-text">
+                Разработка сайтов и приложений (скачивание медиа, удаление фона, конвертеры) с нагрузкой до 1 млн пользователей в день. Работа с Feature-Sliced Design, инфраструктурой Docker,
+                Terraform, GitLab CI и метриками в Grafana.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">React / Redux</span><span class="tech-mini-tag">Node.js</span> <span class="tech-mini-tag">Python (OpenCV)</span
+                ><span class="tech-mini-tag">Terraform</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-slide-card">
+            <div>
+              <div class="card-project-header">
+                <div class="company-meta">
+                  <h4>ООО «СКАЛОВ»</h4>
+                  <p>miniapps.market startup</p>
+                </div>
+                <span class="project-period">06.2022 – 09.2022</span>
+              </div>
+              <div class="project-role-title">Team Lead / Full-stack</div>
+              <p class="project-desc-text">
+                Руководство командой из 5 специалистов. Разработка платформы для скачивания приложений (PWA). Проектирование БД на PostgreSQL (Sequelize). Реализация JWT, интеграция эквайринга
+                YooKassa, настройка процессов CI/CD и Code Review.
+              </p>
+            </div>
+            <div class="project-card-tech-footer">
+              <div class="form-label">Стек технологий</div>
+              <div class="project-tech-tags">
+                <span class="tech-mini-tag">Node.js</span><span class="tech-mini-tag">React</span> <span class="tech-mini-tag">PostgreSQL</span><span class="tech-mini-tag">Sequelize</span>
+                <span class="tech-mini-tag">Team Management</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -235,6 +523,5 @@
       </div>
     </section>
 
-    <!-- <script src="js/main.js" type="module"></script> -->
   </body>
 </html>
