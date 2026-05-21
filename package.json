@@ -2,15 +2,16 @@
   "name": "ai-interface",
   "version": "1.0.0",
   "description": "Минималистичный ИИ-интерфейс с поддержкой голосового ввода (Web Speech API) и динамическим выбором моделей (OpenRouter, OpenAI, DeepSeek).",
-
   "scripts": {
-    "start": "make dev",
-    "dev": "make dev",
-    "install:all": "make install",
-    "dev:backend": "make dev-backend",
-    "dev:frontend": "make dev-frontend",
-    "build": "make build",
-    "clean": "make clean"
+    "install": "npm install --prefix backend && npm install --prefix frontend",
+    "build": "npm run build --prefix backend && npm run build --prefix frontend",
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "start": "concurrently \"npm run start --prefix backend\" \"npm run start --prefix frontend\"",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "start:backend": "npm run start --prefix backend",
+    "start:frontend": "npm run start --prefix frontend",
+    "clean": "rm -rf backend/dist frontend/dist"
   },
   "repository": {
     "type": "git",
@@ -48,5 +49,8 @@
   "bugs": {
     "url": "https://github.com/d9911/ai-interface/issues"
   },
-  "homepage": "https://github.com/d9911/ai-interface#readme"
+  "homepage": "https://github.com/d9911/ai-interface#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
