@@ -1,36 +1,105 @@
 :root {
-  /* --colors-primary: #ff7a17;
-  --colors-primary-deep: #e0650d;
-  --colors-cream: #fbf9f4;
-  --colors-cream-soft: #f5f2eb;
-  --colors-cream-deeper: #ede8dc;
-  --colors-beige-deep: #decba5;
-  --colors-ink: #111111;
-  --colors-slate: #4a4a4a;
-  --colors-steel: #7d7d7d;
-  --colors-hairline: rgba(17, 11, 11, 0.08);
-  --colors-hairline-strong: rgba(11, 11, 11, 0.25);
-
-  --colors-bg-dark: #0a0a0a;
-  --colors-bg-card: #171717;
-  --colors-bg-input: #202020;
-  --colors-border-dark: rgba(255, 255, 255, 0.08);
-  --colors-good: #7cdb8e;
-  --colors-warn: #f2db82;
-  --colors-bad: #e55b5b; */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
-  --colors-bg: #0b0f19;
-  --colors-surface: #111827;
-  --colors-surface-soft: #1f2937;
   --colors-primary: #ff7a17;
-  --colors-primary-hover: #e0630d;
-  --colors-text: #f3f4f6;
-  --colors-steel: #9ca3af;
+  --colors-primary-hover: #e0650d;
+  --colors-bg: #fbf9f4;
+  --colors-surface: #f5f2eb;
+  --colors-surface-soft: #ede8dc;
+  --colors-border: rgba(11, 11, 11, 0.08);
+  --colors-border-strong: rgba(11, 11, 11, 0.25);
+
+  --colors-text: #111111;
+  --colors-text-muted: #4a4a4a;
+  --colors-steel: #7d7d7d;
   --colors-good: #10b981;
   --colors-warn: #f59e0b;
   --colors-bad: #ef4444;
+}
+
+body:has(#theme-toggle:checked) {
+  --colors-bg: #0a0a0a;
+  --colors-surface: #171717;
+  --colors-surface-soft: #202020;
+  --colors-border: rgba(255, 255, 255, 0.08);
+  --colors-border-strong: rgba(255, 255, 255, 0.16);
+
+  --colors-text: #f3f4f6;
+  --colors-text-muted: #9ca3af;
+  --colors-steel: #7d7d7d;
+  --colors-good: #7cdb8e;
+  --colors-warn: #f2db82;
+  --colors-bad: #e55b5b;
+}
+
+.theme-switcher-wrapper {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+.theme-toggle-checkbox {
+  display: none;
+}
+.theme-toggle-label {
+  width: 54px;
+  height: 28px;
+  background-color: var(--colors-surface-soft);
+  border: 1px solid var(--colors-border-strong);
+  border-radius: 99px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6px;
+  font-size: 13px;
+  user-select: none;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
+}
+.theme-toggle-label::after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  background-color: var(--colors-primary);
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+.theme-toggle-checkbox:checked + .theme-toggle-label::after {
+  transform: translateX(26px);
+  background-color: #ffffff;
+}
+.theme-toggle-icon-sun,
+.theme-toggle-icon-moon {
+  z-index: 1;
+  transition: opacity 0.2s ease;
+}
+.theme-toggle-checkbox:checked + .theme-toggle-label .theme-toggle-icon-sun {
+  opacity: 0.3;
+}
+.theme-toggle-checkbox:not(:checked) + .theme-toggle-label .theme-toggle-icon-moon {
+  opacity: 0.3;
+}
+body,
+.header,
+.stack-box,
+.app-card,
+.form-panel,
+.form-input,
+.mastodont-dashboard,
+.kpi-card,
+.transcript-box,
+.analysis-output {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 * {
@@ -466,6 +535,42 @@ textarea.form-input {
   align-items: center;
   gap: 8px;
 }
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  position: relative;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.menu-toggle-checkbox {
+  display: none;
+}
+
+.menu-burger-icon {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 18px;
+  cursor: pointer;
+  z-index: 110;
+}
+
+.menu-burger-icon span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--colors-text);
+  transition: all 0.3s ease;
+}
 @media (max-width: 992px) {
   section {
     padding: 60px 0;
@@ -475,61 +580,164 @@ textarea.form-input {
     font-size: 30px;
     margin-bottom: 32px;
   }
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 600;
+    margin-bottom: clamp(24px, 3vw, 40px);
+    letter-spacing: -0.5px;
+  }
   .hero {
     padding-top: 120px;
     padding-bottom: 60px;
   }
 
   .hero-grid {
-    grid-template-columns: 1fr; /* Перестраиваем в одну колонку */
+    grid-template-columns: 1fr;
     gap: 40px;
   }
 
   .hero-title {
     font-size: 38px;
   }
+
   .app-grid {
-    grid-template-columns: repeat(2, 1fr); /* Становится 2 в ряд */
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
   .kpi-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2x2 карточки */
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 
   .live-panel {
-    grid-template-columns: 1fr; /* Панель управления и лог ложатся друг под друга */
+    grid-template-columns: 1fr;
     gap: 20px;
+  }
+
+  .menu-burger-icon {
+    display: flex;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--colors-surface);
+    border-left: 1px solid var(--colors-border);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 100px 32px;
+    gap: 40px;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 105;
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2);
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+  }
+
+  .nav-links a {
+    font-size: 18px;
+    display: block;
+    width: 100%;
+  }
+
+  .nav-cta-btn {
+    width: 100%;
+  }
+  .header .nav-cta-btn {
+    display: inline-flex;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+  }
+
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .theme-switcher-wrapper {
+    margin-left: auto;
+    margin-right: 12px;
+  }
+
+  .header .nav-cta-btn {
+    display: inline-flex;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-right: 12px;
+    height: 34px;
+  }
+
+  .header .nav-cta-btn font,
+  .header .nav-cta-btn span {
+    display: none;
+  }
+
+  .header .nav-cta-btn::before {
+    content: 'Обсудить';
+  }
+
+  .menu-burger-icon {
+    display: flex;
+    flex-shrink: 0;
+  }
+  .menu-toggle-checkbox:checked ~ .nav-menu {
+    right: 0;
+  }
+
+  .menu-toggle-checkbox:checked + .menu-burger-icon span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: var(--colors-primary);
+  }
+
+  .menu-toggle-checkbox:checked + .menu-burger-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle-checkbox:checked + .menu-burger-icon span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: var(--colors-primary);
   }
 }
 @media (max-width: 576px) {
   .container {
-    padding: 0 16px; /* Чуть уменьшаем отступы по бокам экрана */
+    padding: 0 16px;
   }
   .header .container {
     height: 70px;
   }
   .header .btn-m {
-    display: none; /* Скрываем громоздкую кнопку из шапки */
+    display: none;
   }
 
   .nav-links {
     gap: 16px;
-    overflow-x: auto; /* Добавляем горизонтальный скролл для меню, если оно не влезает */
+    overflow-x: auto;
     padding-bottom: 4px;
     max-width: calc(100% - 110px);
   }
 
   .nav-links::-webkit-scrollbar {
-    display: none; /* Скрываем уродливый нативный скроллбар */
+    display: none;
   }
 
   .nav-links a {
     font-size: 13px;
-    white-space: nowrap; /* Чтобы ссылки не переносились на вторую строку */
+    white-space: nowrap;
   }
+
   .hero-title {
-    font-size: 28px;
+    font-size: clamp(28px, 5vw, 48px);
     line-height: 1.2;
   }
 
@@ -539,18 +747,18 @@ textarea.form-input {
   }
 
   .hero-actions {
-    flex-direction: column; /* Кнопки встают друг под друга */
+    flex-direction: column;
     gap: 12px;
   }
 
   .hero-actions .btn-m {
-    width: 100%; /* Кнопки занимают всю ширину */
+    width: 100%;
   }
   .stack-box {
     padding: 20px;
   }
   .app-grid {
-    grid-template-columns: 1fr; /* Полностью в 1 колонку */
+    grid-template-columns: 1fr;
     gap: 16px;
   }
 
@@ -578,7 +786,7 @@ textarea.form-input {
   }
 
   .kpi-grid {
-    grid-template-columns: 1fr; /* KPI метрики выстраиваются вертикально */
+    grid-template-columns: 1fr;
     gap: 8px;
   }
 
@@ -588,6 +796,9 @@ textarea.form-input {
 
   .kpi-val {
     font-size: 20px;
+  }
+  .nav-menu {
+    width: 100%;
   }
 }
 

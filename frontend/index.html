@@ -14,16 +14,34 @@
   </head>
   <body>
     <header class="header">
-      <div class="container">
+      <div class="container header-container">
         <div class="logo">DEN_GU<span>_</span></div>
-        <ul class="nav-links">
-          <li><a href="#about">Разработчик</a></li>
-          <li><a href="#experience">Опыт</a></li>
-          <li><a href="#approach">Подход</a></li>
-          <li><a href="#cases">AI-Компонент</a></li>
-          <li><a href="#contact">Контакты</a></li>
-        </ul>
-        <a href="#contact" class="btn-m btn-m-primary">Обсудить проект</a>
+
+        <div class="theme-switcher-wrapper">
+          <input type="checkbox" id="theme-toggle" class="theme-toggle-checkbox" />
+          <label for="theme-toggle" class="theme-toggle-label">
+            <span class="theme-toggle-icon-sun">☀️</span>
+            <span class="theme-toggle-icon-moon">🌙</span>
+          </label>
+        </div>
+
+        <input type="checkbox" id="menu-toggle" class="menu-toggle-checkbox" />
+        <label for="menu-toggle" class="menu-burger-icon">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+
+        <nav class="nav-menu">
+          <ul class="nav-links">
+            <li><a href="#about">Разработчик</a></li>
+            <li><a href="#experience">Опыт</a></li>
+            <li><a href="#approach">Подход</a></li>
+            <li><a href="#cases">AI-Компонент</a></li>
+            <li><a href="#contact">Контакты</a></li>
+          </ul>
+          <a href="#contact" class="btn-m btn-m-primary nav-cta-btn">Обсудить проект</a>
+        </nav>
       </div>
     </header>
 
