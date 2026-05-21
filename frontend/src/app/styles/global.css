@@ -800,6 +800,15 @@ textarea.form-input {
   .nav-menu {
     width: 100%;
   }
+
+  .logo {
+    font-size: 17px;
+  }
+
+  .header .nav-cta-btn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 }
 
 @keyframes blink {
