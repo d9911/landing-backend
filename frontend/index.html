@@ -482,18 +482,28 @@
           </div>
 
           <div class="kpi-grid">
+            <!-- Оценка -->
             <div class="kpi-card">
               <div class="kpi-lbl">Соблюдение скрипта</div>
-              <div class="kpi-val" id="kpi-score">--<span style="font-size: 14px; color: var(--colors-steel)">/100</span></div>
+              <div class="kpi-val-wrapper">
+                <span id="kpi-score" class="kpi-number">--</span>
+                <span class="kpi-total">/100</span>
+              </div>
             </div>
+
+            <!-- СЛОВА -->
             <div class="kpi-card">
-              <div class="kpi-lbl">Перехватов инициативы</div>
-              <div class="kpi-val">0</div>
+              <div class="kpi-lbl">Слов</div>
+              <div class="kpi-val" id="kpi-words">0</div>
             </div>
+
+            <!-- СИМВОЛЫ -->
             <div class="kpi-card">
-              <div class="kpi-lbl">Статус записи</div>
-              <div class="text-sm font-bold mt-2" style="color: var(--colors-warn); text-transform: uppercase">Ready</div>
+              <div class="kpi-lbl">Символов (без/с пробел)</div>
+              <div class="kpi-val" id="kpi-chars" style="font-size: 16px">0 / 0</div>
             </div>
+
+            <!-- ВРЕМЯ -->
             <div class="kpi-card">
               <div class="kpi-lbl">Длительность</div>
               <div class="kpi-val" id="kpi-calls">00:00</div>
@@ -508,8 +518,8 @@
               <div id="mic-status" style="font-size: 13px; color: var(--colors-steel); margin-top: 12px">Нажмите для запуска записи голоса</div>
 
               <!-- Транскрипт -->
-              <div id="live-transcript" class="transcript-box" style="margin-top: 24px">
-                Поговорите с клиентом: произнесите "Здравствуйте", "скидка" или "дорого", чтобы ИИ проанализировал вашу речь...
+              <div style="position: relative; margin-top: 24px">
+                <div id="live-transcript" class="transcript-box">Поговорите с клиентом: произнесите "Здравствуйте", "скидка" или "дорого", чтобы ИИ проанализировал вашу речь...</div>
               </div>
             </div>
 
@@ -522,6 +532,5 @@
         </div>
       </div>
     </section>
-
   </body>
 </html>
