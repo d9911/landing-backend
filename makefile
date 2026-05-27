@@ -111,12 +111,9 @@ prod-pm2: clean-ports init-env build
 	$(MAKE) pm2-start
 
 
+# 	netsh interface portproxy delete v4tov4 listenport=5173 listenaddress=192.168.1.249
 windows:
-	netsh interface portproxy delete v4tov4 listenport=5173 listenaddress=192.168.1.249
-	netsh interface portproxy add v4tov4 listenport=5173 listenaddress=192.168.1.249 connectport=5173 connectaddress=172.25.225.109
-	netsh advfirewall firewall add rule name="WSL Frontend Link 5173" dir=in action=allow protocol=TCP localport=5173
 	ip addr show eth0 | grep "inet "
-	netsh interface portproxy add v4tov4 listenport=5173 listenaddress=192.168.1.249 connectport=5173 connectaddress=172.25.225.109
 	wsl -d Ubuntu
 	sudo apt update && sudo apt install make nodejs npm -y
 	npm install -g yarn
@@ -124,3 +121,11 @@ windows:
 	make dev:init
 	npx localtunnel --port 5173
 	npx ngrok http 5173
+
+
+
+port-wsl:
+	netsh interface portproxy add v4tov4 listenport=3001 listenaddress=192.168.1.249 connectport=3001 connectaddress=172.25.225.109
+	netsh interface portproxy add v4tov4 listenport=5173 listenaddress=192.168.1.249 connectport=5173 connectaddress=172.25.225.109
+	netsh advfirewall firewall add rule name="WSL Backend 3001" dir=in action=allow protocol=TCP localport=3001
+	netsh advfirewall firewall add rule name="WSL Frontend 5173" dir=in action=allow protocol=TCP localport=5173
